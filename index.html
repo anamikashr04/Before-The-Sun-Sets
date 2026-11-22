@@ -93,10 +93,10 @@ input[type=range]{accent-color:#c3dc9a;width:100%}
  <div class="exits" id="exits"></div>
  <div class="hud tl"><div class="lbl" id="dayl">DAY 01 · LOOP 1</div><div class="clock" id="clock">06:00</div><div class="bar"><i id="sunfill"></i></div><div class="sub2" id="sunl">SUNSET IN 12:45</div>
   <div class="obj"><b>OBJECTIVE</b><span id="objt">Find the pangolin's shelter.</span></div><div class="lbl" style="margin-top:12px;color:var(--mute)" id="place">CAMP</div></div>
- <div class="hud tr"><div style="display:flex;justify-content:flex-end;align-items:flex-start"><div><div class="lbl">NOTICING POINTS</div><div class="score" id="score">0</div></div><button class="iconbtn" id="infob" title="Info" aria-label="Info">i</button><button class="iconbtn" id="pauseb" title="Pause" aria-label="Pause" style="font-family:var(--hud);font-style:normal;font-size:15px">II</button></div>
+ <div class="hud tr"><div style="display:flex;justify-content:flex-end;align-items:flex-start"><div><div class="lbl">NOTICING POINTS</div><div class="score" id="score">0</div></div><button class="iconbtn" id="infob" title="Info" aria-label="Info">i</button><button class="iconbtn" id="dtb" title="Day and time (C)" aria-label="Day and time" style="font-family:var(--hud);font-style:normal;font-size:16px">◷</button><button class="iconbtn" id="nextb" title="Skip to the next day (N)" aria-label="Skip to the next day" style="font-family:var(--hud);font-style:normal;font-size:14px">⏭</button><button class="iconbtn" id="pauseb" title="Pause" aria-label="Pause" style="font-family:var(--hud);font-style:normal;font-size:15px">II</button></div>
   <div style="display:flex;justify-content:flex-end;align-items:center;gap:8px;margin-top:8px;pointer-events:auto"><label for="hvol" class="lbl" style="color:var(--mute)">VOLUME · V</label><input id="hvol" type="range" min="0" max="1" step="0.05" value="0.8" style="width:110px"></div><div class="dia" id="dia"><i></i><i></i><i></i><i></i></div><div class="lbl" style="margin-top:12px;color:var(--mute)">SENSE ENERGY</div><div class="en"><i id="en"></i></div><div class="feed" id="feed"></div></div>
  <div class="hud bl"><div class="senses" id="senses"><button data-s="human" class="on">1 HUMAN<small>YOUR EYES</small></button><button data-s="bird">2 BIRD<small>SEE FAR</small></button><button data-s="frog">3 FROG<small>FEEL WATER</small></button><button data-s="leopard">4 LEOPARD<small>READ TRACKS</small></button></div>
-  <div class="keys"><span><kbd>W</kbd><kbd>S</kbd> / <kbd>↑</kbd><kbd>↓</kbd> walk on · back</span><span><kbd>A</kbd><kbd>D</kbd> / <kbd>←</kbd><kbd>→</kbd> turn to a path</span><span>Mouse · look around</span><span><kbd>E</kbd> inspect</span><span><kbd>1</kbd>–<kbd>4</kbd> / <kbd>P</kbd> / <kbd>Tab</kbd> / wheel · switch sense</span><span><kbd>M</kbd> map</span><span><kbd>V</kbd> sound</span><span><kbd>J</kbd> journal</span><span><kbd>T</kbd> wait</span><span><kbd>Esc</kbd> pause</span></div></div>
+  <div class="keys"><span><kbd>W</kbd><kbd>S</kbd> / <kbd>↑</kbd><kbd>↓</kbd> walk on · back</span><span><kbd>A</kbd><kbd>D</kbd> / <kbd>←</kbd><kbd>→</kbd> turn to a path</span><span>Mouse · look around</span><span><kbd>E</kbd> inspect</span><span><kbd>1</kbd>–<kbd>4</kbd> / <kbd>P</kbd> / <kbd>Tab</kbd> / wheel · switch sense</span><span><kbd>M</kbd> map</span><span><kbd>V</kbd> sound</span><span><kbd>J</kbd> journal</span><span><kbd>T</kbd> wait</span><span><kbd>N</kbd> next day</span><span><kbd>C</kbd> day &amp; time</span><span><kbd>[</kbd><kbd>]</kbd> ±1 hour</span><span><kbd>Esc</kbd> pause</span></div></div>
  <div class="hud br"><canvas id="mini" width="400" height="400" title="Open map"></canvas><div class="mlab">MAP · M</div></div>
 </div>
 <div id="fade"></div>
@@ -118,8 +118,10 @@ input[type=range]{accent-color:#c3dc9a;width:100%}
 <div class="scr" id="s_brief" hidden><div class="in"><div class="eb">DAY 01 · BRIEFING</div><h2>You have until <em>sunset.</em></h2>
  <div class="cols"><div class="card"><b>01 · THE PANGOLIN</b><p>An Indian pangolin lives near a shelter off the misty path. Tonight, someone is coming for it.</p></div><div class="card"><b>02 · FOUR CLUES</b><p>A canopy marker, a water crossing, an old field record, a track junction. Each needs a different sense.</p></div><div class="card"><b>03 · THE ROUTE</b><p>Choose the safe route on the camp map board, then guide the pangolin to the refuge before the sun sets.</p></div></div>
  <div class="row"><button class="btn" id="b_go">BEGIN</button><span style="font-family:var(--hud);letter-spacing:.2em;color:var(--mute);font-size:13px">CLICK THE VIEW TO LOCK THE MOUSE · ESC TO PAUSE</span></div></div></div>
+<div class="scr" id="s_enter" hidden style="transition:background-image .8s;background-position:78% center"><div class="in"><div class="eb">THE INSTALLATION · ENTRANCE</div><h2>Leave your phone at the door.<br><em>The forest begins.</em></h2><p class="l">In the physical installation, visitors pass a moss-lined corridor and step through a living portal into the forest. Real plants, moss, mist and projected light surround them; the digital layer is sound, light and time. This prototype is that forest, on screen.</p><div class="cols"><div class="card"><b>OBSERVATION</b><p>Nothing is labelled. You notice for yourself.</p></div><div class="card"><b>MYSTERY</b><p>Clues hide in light, water and tracks.</p></div><div class="card"><b>SELF-DISCOVERY</b><p>Each loop shows you what you missed.</p></div></div><div class="row"><button class="btn" id="b_inside">STEP INSIDE</button></div></div></div>
+<div class="scr" id="s_dt" hidden style="background:rgba(3,6,4,.9)"><div class="in"><div class="eb">DAY &amp; TIME · C</div><h2>Choose a day and a time.</h2><p class="l">The installation runs on a fixed loop. In this digital prototype you can jump between days and times to explore how the forest changes from dawn to last light.</p><div class="eb" style="margin-top:12px;font-size:12px">DAY</div><div class="row" id="dt_days"></div><div class="eb" style="margin-top:12px;font-size:12px">TIME OF DAY</div><div class="row" id="dt_times"></div><div class="row"><button class="btn g" id="dt_x">BACK TO THE FOREST</button></div></div></div>
 <div class="scr" id="s_count" hidden style="background:#000"><div class="in" style="align-items:center"><div class="eb" id="countl">DAY 01 BEGINS IN</div><div id="count">3</div></div></div>
-<div class="scr" id="s_pause" hidden style="background:rgba(3,6,4,.82)"><div class="in"><div class="eb">PAUSED</div><h2>The forest waits.</h2><div class="menu"><button class="pri" id="p_res">RESUME</button><button id="p_obj">OBJECTIVES</button><button id="p_jour">JOURNAL</button><button id="p_map">MAP</button><button id="p_set">SETTINGS</button><button id="p_rest">RESTART DAY</button><button id="p_quit">QUIT TO MENU</button></div></div></div>
+<div class="scr" id="s_pause" hidden style="background:rgba(3,6,4,.82)"><div class="in"><div class="eb">PAUSED</div><h2>The forest waits.</h2><div class="menu"><button class="pri" id="p_res">RESUME</button><button id="p_obj">OBJECTIVES</button><button id="p_jour">JOURNAL</button><button id="p_map">MAP</button><button id="p_set">SETTINGS</button><button id="p_dt">DAY &amp; TIME</button><button id="p_next">SKIP TO NEXT DAY</button><button id="p_rest">RESTART DAY</button><button id="p_quit">QUIT TO MENU</button></div></div></div>
 <div class="scr" id="s_loop" hidden><div class="in" style="align-items:center;text-align:center"><div class="eb" id="loope"></div><h2 id="looph"></h2><p class="l" id="loopp"></p></div></div>
 <div class="scr" id="s_res" hidden><div class="in"><div class="eb" id="rese">LOOP 1 · RESULTS</div><h2 id="resh">The day is lost.</h2><div class="cols" id="resc"></div><div class="row"><button class="btn" id="r_next">CONTINUE TO LOOP 2</button><button class="btn g" id="r_menu">MENU</button></div></div></div>
 <div class="scr" id="s_win" hidden><div class="in"><div class="eb">THE LOOP BREAKS</div><h1 style="font-size:clamp(46px,7vw,96px)">The pangolin<br>is <em>safe.</em></h1><p class="l" id="winp"></p><h2 style="font-size:32px;font-style:italic;margin-top:8px">What did you notice? And how do you know?</h2><div class="row"><button class="btn" id="w_again">PLAY AGAIN</button><button class="btn g" id="w_menu">MENU</button></div></div></div>
@@ -132,7 +134,7 @@ input[type=range]{accent-color:#c3dc9a;width:100%}
 const $=id=>document.getElementById(id), cv=$('view'), g=cv.getContext('2d');
 let W=0,H=0,DPR=1;function fit(){DPR=Math.min(devicePixelRatio||1,1.5);W=innerWidth;H=innerHeight;cv.width=W*DPR;cv.height=H*DPR;g.setTransform(DPR,0,0,DPR,0,0);}addEventListener('resize',fit);fit();
 // ---------- images
-const IMG={},LIST=['river','sunrise','oak','scary','mist','moonroots','darkpath','refuge','canopy','stream','wake','forest','camp','pangolin','hornbill','frog','tortoise','rope','trunkmark','boot','book','junction','roots','cascade','streamlow','tunnel','fork','paw','tarp','mapboard','burrow','curled','mistytop','canopyup','rays','fern','trail','sunset','moon'];
+const IMG={},LIST=['river','sunrise','oak','scary','mist','moonroots','darkpath','refuge','canopy','stream','wake','forest','camp','pangolin','hornbill','frog','tortoise','rope','trunkmark','boot','book','junction','roots','cascade','streamlow','tunnel','fork','paw','tarp','mapboard','burrow','curled','mistytop','canopyup','rays','fern','trail','sunset','moon','inst_projection','inst_birch','inst_entrance','inst_corridor','inst_room','inst_tunnel','inst_stage','inst_portal'];
 function loadAll(onp){let n=0;return Promise.all(LIST.map(k=>new Promise(r=>{const i=new Image();i.onload=i.onerror=()=>{n++;onp(n/LIST.length);r();};i.src='assets/'+k+'.jpg';IMG[k]=i;})));}
 const src=k=>'assets/'+k+'.jpg';
 const VID={};let curV=null;function vid(k){if(!VID[k]){const v=document.createElement('video');v.src='video/'+k+(v.canPlayType('video/mp4; codecs="avc1.42E01E"')?'.mp4':'.webm');v.muted=true;v.loop=true;v.playsInline=true;v.preload='auto';v.setAttribute('playsinline','');VID[k]=v;}return VID[k];}
@@ -141,33 +143,38 @@ function pick(){// returns {el,w,h,zoom,ay,flt}
  let el,zoom=1.3,ay=.5,flt='';
  if(S.walk){el=vid(S.walk.k);zoom=1.3+.25*(S.walk.t/S.walk.d);}
  else if(S.cin){const sh=S.cin.shots[S.cin.i],p=Math.min(1,S.cin.t/sh.d);el=sh.vid?vid(sh.vid):IMG[sh.img];zoom=sh.z0+(sh.z1-sh.z0)*p;ay=sh.ay0+(sh.ay1-sh.ay0)*p;flt=sh.f||'';}
- else{const n=N[S.node];
+ else{const n=CV();
   if(S.sense==='bird'){el=vid(n.bv||'birdA');zoom=1.2;}
   else if(S.sense==='frog'){el=vid(n.fv||(n.water?'frogW':'frogA'));zoom=1.35;}
   else el=n.vid?vid(n.vid):IMG[n.img];
   if(n.vid&&S.sense!=='bird'&&S.sense!=='frog')zoom=1.45;
   if(S.sense==='leopard')flt='grayscale(.6) contrast(1.35) brightness(1.15) sepia(.25) hue-rotate(50deg)';}
  const isV=el&&el.tagName==='VIDEO';useV(isV?el:null);
- if(isV&&el.readyState<2){const n=S.cin?null:N[S.node];const fb=n?IMG[n.img]:null;return fb&&fb.complete?{el:fb,w:fb.naturalWidth,h:fb.naturalHeight,zoom,ay,flt,isV:0}:null;}
- if(!el||(!isV&&!el.complete))return null;return{el,w:isV?el.videoWidth:el.naturalWidth,h:isV?el.videoHeight:el.naturalHeight,zoom,ay,flt,isV};}
+ if(isV&&el.readyState<2){const n=S.cin?null:CV();const fb=n?IMG[n.img]:null;return fb&&fb.complete?{el:fb,w:fb.naturalWidth,h:fb.naturalHeight,zoom,ay,flt,isV:0}:null;}
+ if(!el||(!isV&&!el.complete))return null;return{el,w:isV?el.videoWidth:el.naturalWidth,h:isV?el.videoHeight:el.naturalHeight,zoom,ay,flt,isV,flip:!S.cin&&!S.walk&&S.sense!=='bird'&&S.sense!=='frog'&&CV().flip};}
 // ---------- world graph (map positions are on the aerial river photograph)
-const N={
- camp:{img:'camp',name:'CAMP',map:[.6,.56],ex:{W:['oak','FOREST PATH'],A:['mist','MISTY TRAIL'],D:['stream','THE STREAM']},bird:'river',rays:0,
-  hot:[{id:'board',x:.6,y:.6,r:.07,label:'Read the map board'},{id:'fire',x:.5,y:.63,r:.06,note:'The campfire, still warm',pts:10}]},
- oak:{img:'oak',vid:'oak',name:'THE FOREST TRAIL',map:[.58,.42],ex:{W:['darkpath','COVERED PASSAGE'],A:['scary','THE TWISTED TREE'],S:['camp','CAMP']},bv:'birdB',
-  hot:[{id:'c0',sense:'bird',x:.52,y:.5,r:.07,label:'A red glint in the canopy'},{id:'sun',x:.5,y:.45,r:.07,note:'Vines hanging over the trail',pts:10}]},
- mist:{img:'mist',vid:'mist',name:'MISTY TRAIL',map:[.76,.6],ex:{W:['shelter','THE SHELTER'],S:['camp','CAMP']},bird:'mistytop',rays:0,hot:[{id:'fogroots',x:.6,y:.45,r:.08,note:'Mist pooling in the hollow',pts:10}]},
- shelter:{img:'forest',vid:'shelter',name:"THE PANGOLIN'S SHELTER",map:[.82,.46],ex:{S:['mist','MISTY TRAIL'],D:['oak','OLD OAK PATH']},bird:'sunrise',rays:1,
-  hot:[{id:'pangolin',x:.4,y:.62,r:.08,label:'Something moves by the roots'},{id:'cascade',x:.6,y:.4,r:.07,note:'Lichen on the old trunk',pts:10}]},
- stream:{img:'stream',vid:'stream',name:'THE STREAM',map:[.48,.62],ex:{S:['camp','CAMP'],W:['crossing','WATER CROSSING']},bird:'river',rays:1,water:1,bfly:1,
-  hot:[{id:'bfly',x:.55,y:.5,r:.1,note:'Water running over smooth rock',pts:15}]},
- crossing:{img:'streamlow',vid:'crossing',fv:'frogW',name:'WATER CROSSING',map:[.45,.55],ex:{S:['stream','THE STREAM']},bird:'river',water:1,
-  hot:[{id:'c1',sense:'frog',x:.5,y:.6,r:.09,label:'Churned mud at the edge'}]},
- scary:{img:'scary',name:'THE TWISTED TREE',map:[.7,.3],ex:{S:['oak','OLD OAK PATH'],D:['darkpath','COVERED PASSAGE']},bird:'mistytop',rays:0,
-  hot:[{id:'tortoise',x:.56,y:.83,r:.08,label:'Talk to the old tortoise'},{id:'c2',x:.43,y:.84,r:.07,label:'A notebook, half buried',needT:1},{id:'hands',x:.5,y:.35,r:.09,note:'Branches like reaching hands',pts:15}]},
- darkpath:{img:'darkpath',vid:'darkpath',name:'COVERED PASSAGE',map:[.46,.3],ex:{S:['oak','OLD OAK PATH'],W:['refuge','THE REFUGE']},bird:'sunrise',rays:0,
-  hot:[{id:'c3',sense:'leopard',x:.45,y:.6,r:.09,label:'Tracks, crossing each other'}]},
- refuge:{img:'refuge',name:'THE REFUGE',map:[.3,.2],ex:{S:['darkpath','COVERED PASSAGE']},bird:'sunrise',rays:1,hot:[{id:'glow',x:.5,y:.82,r:.12,note:'The forest floor, glowing',pts:20}]}};
+// ---------- the walkable forest: a 4x3 grid of places, each seen in four directions (N E S W)
+const V=(k,o)=>Object.assign({k},o||{});
+const LOC={
+ refuge:{name:'THE REFUGE',g:[0,0],v:{N:V('img:refuge',{hot:[{id:'glow',x:.5,y:.62,r:.12,note:'A protected glade, glowing softly',pts:20}]}),E:V('c89'),S:V('mist',{flip:1}),W:V('c99',{flip:1})}},
+ darkpath:{name:'COVERED PASSAGE',g:[1,0],v:{N:V('darkpath',{hot:[{id:'c3',sense:'leopard',x:.45,y:.6,r:.09,label:'Tracks, crossing each other'}]}),E:V('c25'),S:V('c76'),W:V('c157')}},
+ scary:{name:'THE TWISTED TREE',g:[2,0],v:{N:V('img:scary',{ly:.85,hot:[{id:'tortoise',x:.58,y:.81,r:.09,label:'Talk to the old tortoise'},{id:'c2',x:.43,y:.86,r:.07,label:'A notebook, half buried',needT:1},{id:'hands',x:.5,y:.4,r:.09,note:'Branches like reaching hands',pts:15}],spr:[{k:'tortoise',x:.58,y:.875,h:.2}]}),E:V('c22',{flip:1}),S:V('c73',{flip:1}),W:V('c157',{flip:1})}},
+ grove:{name:'FLOODED GROVE',g:[0,1],water:1,v:{N:V('c99',{hot:[{id:'flood',x:.5,y:.6,r:.1,note:'Trees standing in floodwater',pts:15}]}),E:V('c122'),S:V('c127'),W:V('c22')}},
+ trail:{name:'THE FOREST TRAIL',g:[1,1],bv:'birdB',v:{N:V('oak',{hot:[{id:'vines',x:.5,y:.45,r:.08,note:'Vines hanging over the trail',pts:10}]}),E:V('c41',{hot:[{id:'hornbill',x:.36,y:.42,r:.08,note:'A hornbill, watching from a branch',pts:25}],spr:[{k:'hornbill',x:.36,y:.5,h:.2}]}),S:V('c7'),W:V('c146')}},
+ hollow:{name:'THE DARK HOLLOW',g:[2,1],v:{N:V('darkpath',{flip:1}),E:V('c25',{flip:1}),S:V('c76',{flip:1}),W:V('c7',{flip:1})}},
+ stream:{name:'THE STREAM',g:[0,2],water:1,v:{N:V('stream',{hot:[{id:'bfly',x:.55,y:.5,r:.1,note:'Water running over smooth rock',pts:15}]}),E:V('c128'),S:V('c130'),W:V('c63')}},
+ camp:{name:'CAMP',g:[1,2],v:{N:V('img:camp',{hot:[{id:'board',x:.6,y:.6,r:.07,label:'Read the map board'},{id:'fire',x:.5,y:.63,r:.06,note:'The campfire, still warm',pts:10}]}),E:V('c64'),S:V('c65'),W:V('c158')}},
+ mist:{name:'MISTY TRAIL',g:[2,2],v:{N:V('mist',{hot:[{id:'fogroots',x:.6,y:.45,r:.08,note:'Mist drifting between the trunks',pts:10}]}),E:V('c89',{flip:1}),S:V('c41',{flip:1}),W:V('c146',{flip:1})}},
+ crossing:{name:'WATER CROSSING',g:[0,3],water:1,fv:'frogW',v:{N:V('crossing',{hot:[{id:'c1',sense:'frog',x:.5,y:.6,r:.09,label:'Churned mud at the edge'},{id:'frogseen',x:.64,y:.66,r:.07,note:'A gliding frog on a wet rock',pts:25}],spr:[{k:'frog',x:.64,y:.74,h:.13}]}),E:V('c128',{flip:1}),S:V('c70'),W:V('c130',{flip:1})}},
+ clearing:{name:'THE CLEARING',g:[1,3],v:{N:V('c65',{flip:1}),E:V('c3'),S:V('c6'),W:V('c70',{flip:1})}},
+ shelter:{name:"THE PANGOLIN'S SHELTER",g:[2,3],v:{N:V('c68',{hot:[{id:'burrow',x:.55,y:.45,r:.08,note:'A hollow at the base of a trunk',pts:10}]}),E:V('shelter',{hot:[{id:'pangolin',x:.46,y:.6,r:.1,label:'Something moves by the roots'}],spr:[{k:'pangolin',x:.46,y:.72,h:.24,id:'pang'}]}),S:V('c71'),W:V('c3',{flip:1})}}};
+const N=LOC;const ease=x=>{x=Math.min(Math.max(x,0),1);return x*x*(3-2*x);};const DIRS=['N','E','S','W'],DV={N:[0,-1],E:[1,0],S:[0,1],W:[-1,0]},DNAME={N:'NORTH',E:'EAST',S:'SOUTH',W:'WEST'};
+const BLOCK={'grove>refuge':'Deep floodwater. No way through.','refuge>grove':'Deep floodwater. No way through.'};
+function at(x,y){for(const k in LOC){const p=LOC[k].g;if(p[0]===x&&p[1]===y)return k;}return null;}
+function ahead(k,f){const p=LOC[k].g,d=DV[f];return at(p[0]+d[0],p[1]+d[1]);}
+for(const k in LOC){const p=LOC[k].g;LOC[k].map=[.3+p[0]*.2,.26+p[1]*.085];}
+function CV(){const L=LOC[S.node],v=L.v[S.face||'N'];const o={ly:v.ly,name:L.name,water:L.water,bv:L.bv,fv:L.fv,hot:v.hot||[],spr:v.spr||[],flip:!!v.flip};if(v.k.startsWith('img:'))o.img=v.k.slice(4);else{o.vid=v.k;o.img='forest';}return o;}
+const SPR={};['pangolin','tortoise','hornbill','frog'].forEach(k=>{const i=new Image();i.src='sprites/'+k+'.png';SPR[k]=i;});
 const CLUE={c0:{n:0,img:'rope',img2:'trunkmark',tag:'CLUE 1 · CANOPY MARKER',h:'A cord, caught high on a branch.',p:'Red synthetic cord tied around a branch, and a yellow mark painted on a trunk below. Someone marked a way into the forest.',sense:'bird'},
  c1:{n:1,img:'boot',img2:'tarp',tag:'CLUE 2 · WATER CROSSING',h:'Boot prints in the mud.',p:'Fresh boot impressions at the water’s edge and a torn waterproof tarp. A person crossed here, carrying gear.',sense:'frog'},
  c2:{n:2,img:'book',tag:'CLUE 3 · OLD FIELD RECORD',h:'A ranger’s old notebook.',p:'Sketches of the pangolin and a paw print. Notes of gunshots and missing animals. This has happened before.',sense:'human'},
@@ -176,15 +183,16 @@ const SENSE={human:{label:'HUMAN · YOUR OWN EYES',cost:0},bird:{label:'BIRD · 
 // ---------- state
 const DAY0=6*60,SUNSET=18*60+45,REAL=480;
 let S;function fresh(keepMem){const m=S&&keepMem?{clues:S.clues,noticed:S.noticed,talk:S.talk,score:S.score,route:S.route}:{clues:[0,0,0,0],noticed:new Set(),talk:0,score:0,route:0};
- S=Object.assign({mode:'menu',loop:S&&keepMem?S.loop:1,min:DAY0+12,node:'camp',prev:null,sense:'human',energy:1,lx:0,ly:0,follow:0,trans:0,transTo:null,paused:0,cin:null,warned:0,ending:0,visited:new Set(['camp'])},m);}
+ S=Object.assign({mode:'menu',loop:S&&keepMem?S.loop:1,min:DAY0+12,node:'camp',face:'N',prev:null,sense:'human',energy:1,lx:0,ly:0,follow:0,trans:0,transTo:null,paused:0,cin:null,warned:0,ending:0,visited:new Set(['camp'])},m);}
 fresh();
 // ---------- audio: soft, natural
-let AC,MG,AMB,ambG,strG,crkG;const vol={m:.8,a:.5,sens:1,subs:true};
+let AC,MG,AMB,ambG,strG,crkG,recG,watG;const vol={m:.8,a:.5,sens:1,subs:true};
 function audio(){if(AC)return;AC=new (window.AudioContext||window.webkitAudioContext)();MG=AC.createGain();MG.gain.value=vol.m;MG.connect(AC.destination);
  const mk=(sec,fn)=>{const b=AC.createBuffer(2,AC.sampleRate*sec,AC.sampleRate);for(let c=0;c<2;c++){const d=b.getChannelData(c);fn(d);}const s=AC.createBufferSource();s.buffer=b;s.loop=true;return s;};
  const brown=d=>{let l=0;for(let i=0;i<d.length;i++){l=(l+.02*(Math.random()*2-1))/1.02;d[i]=l*3;}};
  AMB=AC.createGain();AMB.gain.value=vol.a;AMB.connect(MG);
- const w=mk(6,brown),wf=AC.createBiquadFilter();wf.type='lowpass';wf.frequency.value=650;ambG=AC.createGain();ambG.gain.value=.16;w.connect(wf).connect(ambG).connect(AMB);w.start();
+ const rec=(f,gv)=>{const a=new Audio('audio/'+f);a.loop=true;const s2=AC.createMediaElementSource(a);const q=AC.createGain();q.gain.value=gv;s2.connect(q).connect(AMB);a.play().catch(()=>{});return q;};recG=rec('amb.mp3',.75);watG=rec('water.mp3',0);
+ const w=mk(6,brown),wf=AC.createBiquadFilter();wf.type='lowpass';wf.frequency.value=650;ambG=AC.createGain();ambG.gain.value=.06;w.connect(wf).connect(ambG).connect(AMB);w.start();
  const lfo=AC.createOscillator(),lg=AC.createGain();lfo.frequency.value=.07;lg.gain.value=.06;lfo.connect(lg).connect(ambG.gain);lfo.start();
  const st=mk(4,d=>{for(let i=0;i<d.length;i++)d[i]=Math.random()*2-1;}),sf=AC.createBiquadFilter();sf.type='bandpass';sf.frequency.value=1800;sf.Q.value=.6;strG=AC.createGain();strG.gain.value=0;st.connect(sf).connect(strG).connect(AMB);st.start();
  const ck=mk(2,d=>{for(let i=0;i<d.length;i++){const t=i/AC.sampleRate;d[i]=(Math.random()*2-1)*((Math.sin(6.283*28*t)>.4)&&(Math.sin(6.283*.6*t)>-.2)?1:0)*.35;}}),cf=AC.createBiquadFilter();cf.type='bandpass';cf.frequency.value=4600;cf.Q.value=5;crkG=AC.createGain();crkG.gain.value=0;ck.connect(cf).connect(crkG).connect(AMB);ck.start();}
@@ -206,7 +214,7 @@ const bflies=Array.from({length:7},()=>({x:.2+Math.random()*.6,y:.25+Math.random
 // ---------- helpers
 const hm=m=>{m=Math.floor(m);return String(Math.floor(m/60)%24).padStart(2,'0')+':'+String(m%60).padStart(2,'0');};
 function show(id,on){$(id).hidden=!on;}
-function screen(id){document.body.classList.toggle('ovl',!!id&&S&&S.mode==='play');['s_splash','s_menu','s_how','s_set','s_cred','s_load','s_brief','s_count','s_pause','s_loop','s_res','s_win','s_info','s_jour','maps'].forEach(s=>show(s,s===id));}
+function screen(id){document.body.classList.toggle('ovl',!!id&&S&&S.mode==='play');['s_splash','s_menu','s_how','s_set','s_cred','s_load','s_brief','s_enter','s_dt','s_count','s_pause','s_loop','s_res','s_win','s_info','s_jour','maps'].forEach(s=>show(s,s===id));}
 function fade(v,ms){$('fade').style.transitionDuration=(ms||900)+'ms';$('fade').style.opacity=v;}
 const wait=ms=>new Promise(r=>setTimeout(r,ms));
 function feed(t){const d=document.createElement('div');d.textContent=t;$('feed').prepend(d);setTimeout(()=>d.remove(),4300);while($('feed').children.length>4)$('feed').lastChild.remove();}
@@ -215,7 +223,7 @@ let subT=0,banT=0;function say(t,s,col){if(!vol.subs&&!col)return;$('sub').textC
 function banner(t,s){$('banner').textContent=t;$('banner').style.opacity=1;banT=s||2.6;}
 function nClues(){return S.clues.filter(Boolean).length;}
 function objective(){let t;if(S.follow)t='Lead the pangolin through the covered passage to the refuge before sunset.';else if(S.route)t='Go to the shelter and guide the pangolin.';else if(nClues()===4)t='Choose the safe route on the camp map board.';
- else if(!S.noticed.has('pangolin'))t='Find the pangolin’s shelter, beyond the misty trail.';else if(S.loop>1&&!S.talk)t=`Find the old tortoise by the twisted tree. Clues ${nClues()}/4.`;else t=`Find signs of who is coming. Clues ${nClues()}/4.`;$('objt').textContent=t;return t;}
+ else if(!S.noticed.has('pangolin'))t='Find the pangolin’s shelter: east of camp to the misty trail, then south.';else if(S.loop>1&&!S.talk)t=`Find the old tortoise by the twisted tree. Clues ${nClues()}/4.`;else t=`Find signs of who is coming. Clues ${nClues()}/4.`;$('objt').textContent=t;return t;}
 // ---------- view geometry: where an image point lands on screen
 let VT={x:0,y:0,s:1};
 function layout(img,zoom,anchorY){const iw=img.w||img.naturalWidth||1,ih=img.h||img.naturalHeight||1;const s=Math.max(W/iw,H/ih)*zoom;const ox=(W-iw*s)/2,oy=(H-ih*s)*(anchorY==null?.5:anchorY);
@@ -232,17 +240,22 @@ function draw(dt){T+=dt;g.save();g.fillStyle='#000';g.fillRect(0,0,W,H);
  const bob=S.walk?Math.sin(T*8)*5:0;
  const gr=grade(S.min);const night=S.cin?0:gr.night;
  let base='brightness(.92) contrast(1.06) saturate(.9)';if(night>0)base=`brightness(${.92-night*.45}) saturate(${.9-night*.5}) contrast(1.1)`;
- g.filter=base+' '+flt;g.drawImage(img,L.x,L.y+bob,P.w*L.s,P.h*L.s);g.filter='none';
+ g.filter=base+' '+flt;const tx=S.turn?(1-ease(S.turn.t/S.turn.d))*W*.45*S.turn.dir:0;if(S.turn)g.filter+=` blur(${(8*(1-S.turn.t/S.turn.d)).toFixed(1)}px)`;
+ if(P.flip){g.save();g.translate(L.x+P.w*L.s+tx,0);g.scale(-1,1);g.drawImage(img,0,L.y+bob,P.w*L.s,P.h*L.s);g.restore();}else g.drawImage(img,L.x+tx,L.y+bob,P.w*L.s,P.h*L.s);g.filter='none';
  // time-of-day colour
  if(!S.cin){const c=gr.c;g.globalCompositeOperation='multiply';g.fillStyle=`rgba(${255-c[0]*0},${255-c[1]*.6},${255-c[2]*.2},1)`;g.globalAlpha=c[3]*.6;g.fillRect(0,0,W,H);g.globalAlpha=1;
   g.globalCompositeOperation='soft-light';g.fillStyle=`rgba(${c[0]},${c[1]},${c[2]},${c[3]})`;g.fillRect(0,0,W,H);g.globalCompositeOperation='source-over';
   if(night>.3){const mg=g.createRadialGradient(W*.78,H*.16,0,W*.78,H*.16,H*.5);mg.addColorStop(0,`rgba(160,180,230,${.18*night})`);mg.addColorStop(1,'rgba(0,0,0,0)');g.fillStyle=mg;g.fillRect(0,0,W,H);}}
  // light shafts
- const n=S.cin?null:N[S.node];const dayL=S.min>7*60&&S.min<17*60+40&&!night;
+ const n=S.cin?null:CV();const dayL=S.min>7*60&&S.min<17*60+40&&!night;
  if(!P.isV&&!S.walk&&(S.cin?S.cin.shots[S.cin.i].rays:(n.rays&&dayL&&S.sense==='human'))){g.globalCompositeOperation='screen';for(let i=0;i<5;i++){const x=W*(.25+i*.13)+Math.sin(T*.2+i)*20,a=.05+.03*Math.sin(T*.5+i*2);const lg=g.createLinearGradient(x,0,x-W*.18,H);lg.addColorStop(0,`rgba(255,226,170,${a})`);lg.addColorStop(1,'rgba(255,226,170,0)');g.fillStyle=lg;g.beginPath();g.moveTo(x-20,0);g.lineTo(x+40,0);g.lineTo(x-W*.12,H);g.lineTo(x-W*.26,H);g.fill();}g.globalCompositeOperation='source-over';}
  // drifting mist
- const mistA=S.walk?0:S.cin?(S.cin.shots[S.cin.i].mist||0):P.isV?night*.3:((S.node==='scary'?.7:.25)+night*.35);
+ const mistA=S.walk?0:S.cin?(S.cin.shots[S.cin.i].mist||0):P.isV?night*.3:((S.node==='scary'?.6:.2)+night*.35);
  if(mistA>0){for(let k=0;k<2;k++){const m=MIST[k],sp=(T*(14+k*9))%W,y=H*(k?.45:.6);g.globalAlpha=Math.min(1,mistA*(k?.9:1.2));g.drawImage(m,-sp,y,W*1.4,H*.6);g.drawImage(m,W*1.4-sp,y,W*1.4,H*.6);}g.globalAlpha=1;}
+ // animals placed in the scene
+ if(!S.cin&&!S.walk&&!S.turn&&S.sense!=='bird'&&S.sense!=='frog'){const cv_=CV();const list=cv_.spr.filter(q=>!(q.id==='pang'&&S.follow));if(S.follow&&!(S.node==='shelter'&&S.face==='E'))list.push({k:'pangolin',x:.74,y:.97,h:.2});
+  for(const q of list){const im=SPR[q.k];if(!im.complete||!im.naturalWidth)continue;const hh=q.h*H*(1+.012*Math.sin(T*2.2)),ww=hh*im.naturalWidth/im.naturalHeight;const[x,y]=scr(q);
+   g.save();g.globalAlpha=.45;g.fillStyle='#000';g.filter='blur(10px)';g.beginPath();g.ellipse(x,y-hh*.04,ww*.42,hh*.07,0,0,6.3);g.fill();g.restore();g.save();g.filter=`brightness(${.86-grade(S.min).night*.4}) saturate(.85) contrast(1.05)`;g.drawImage(im,x-ww/2,y-hh,ww,hh);g.restore();}}
  // sense cue glints on hidden clues
  if(!S.cin&&!S.walk){for(const h of n.hot){if(!h.sense||h.sense!==S.sense||S.clues[CLUE[h.id].n])continue;const[x,y]=scr(h);const a=.35+.25*Math.sin(T*4);g.strokeStyle=`rgba(227,164,86,${a})`;g.lineWidth=1.5;g.beginPath();g.arc(x,y,26+6*Math.sin(T*3),0,6.3);g.stroke();}}
  if(S.flash>0){g.fillStyle=`rgba(236,231,214,${S.flash*.35})`;g.fillRect(0,0,W,H);S.flash=Math.max(0,S.flash-dt*2.5);}
@@ -253,7 +266,7 @@ function draw(dt){T+=dt;g.save();g.fillStyle='#000';g.fillRect(0,0,W,H);
   if(sh.text){const a=Math.min(1,S.cin.t/.8)*Math.min(1,(sh.d-S.cin.t)/.6);g.fillStyle=`rgba(236,231,214,${a})`;g.font='500 clamp(28px,3.6vw,52px) "Cormorant Garamond",Georgia,serif';g.font=`500 ${Math.round(Math.min(56,W*.035))}px "Cormorant Garamond",Georgia,serif`;g.textAlign='center';g.letterSpacing='0.2em';g.fillText(sh.text,W/2,H/2);g.letterSpacing='0px';}}
  g.restore();}
 // ---------- gaze + interaction
-function updateGaze(dt){target=null;if(S.cin||S.paused)return;const n=N[S.node];let best=null,bd=1e9;
+function updateGaze(dt){target=null;if(S.cin||S.paused||S.turn)return;const n=CV();let best=null,bd=1e9;
  for(const h of n.hot){if(h.sense&&h.sense!==S.sense)continue;if(CLUE[h.id]&&S.clues[CLUE[h.id].n])continue;if(h.id==='pangolin'&&S.follow)continue;
   const[x,y]=scr(h),d=Math.hypot(x-W/2,y-H/2),r=h.r*Math.min(W,H)*1.1;if(d<r&&d<bd){bd=d;best=h;}}
  if(best){if(gaze.id!==best.id){gaze={id:best.id,t:0};}gaze.t+=dt;if(gaze.t>.6)target=best;
@@ -280,15 +293,20 @@ function act(){if(!target||S.paused)return;const h=target;
   const L=[['You have been here before.','I remember the sound.','I remember the little one disappearing.','My roots hide what the ranger wrote. Read it.'],['Above, below, behind. Borrow what you lack.','Then choose the path they did not make.']][Math.min(S.talk,1)];
   if(!S.talk)pts(75,'The tortoise remembers');S.talk++;banner('TRAVANCORE TORTOISE · KEEPER OF MEMORIES',3);L.forEach((l,i)=>setTimeout(()=>{say('“'+l+'”',3.2,'#c3dc9a');SFX.whisper();},i*3400));objective();}}
 // ---------- movement
-function go(dir){if(S.paused||S.cin||S.walk)return;const e=N[S.node].ex[dir];if(!e){if(dir==='S'&&S.prev)return;say('No path that way.',1.5);return;}
- const k='walk'+(1+Math.floor(Math.random()*4)),v=vid(k);try{v.currentTime=0;}catch(_){}S.walk={k,t:0,d:2.4,to:e[0]};SFX.rustle(5);}
-function arrive(k){S.prev=S.node;S.node=k;S.visited.add(k);S.lx=0;S.ly=-.1;$('place').textContent=N[k].name;renderExits();
- if(k==='shelter'&&!S.noticed.has('pangolin'))say('Something small moves by the roots.',3.5);
+function go(dir){if(S.paused||S.cin||S.walk||S.turn)return;
+ if(dir==='A'||dir==='D'){const i=DIRS.indexOf(S.face);S.face=DIRS[(i+(dir==='D'?1:3))%4];S.turn={t:0,d:.45,dir:dir==='D'?1:-1};S.lx=0;S.ly=CV().ly??-.1;SFX.rustle(1);renderExits();return;}
+ if(dir==='S'){const i=DIRS.indexOf(S.face);S.face=DIRS[(i+2)%4];S.turn={t:0,d:.6,dir:1};S.lx=0;S.ly=CV().ly??-.1;SFX.rustle(2);renderExits();return;}
+ const to=ahead(S.node,S.face);if(!to){say('Dense undergrowth. No way through.',2);return;}const bl=BLOCK[S.node+'>'+to];if(bl){say(bl,2.5);return;}
+ const k='walk'+(1+Math.floor(Math.random()*4)),v=vid(k);try{v.currentTime=0;}catch(_){}S.walk={k,t:0,d:2.2,to};SFX.rustle(5);}
+function arrive(k){S.node=k;S.visited.add(k);S.lx=0;S.ly=CV().ly??-.1;$('place').textContent=LOC[k].name+'  ·  FACING '+DNAME[S.face];renderExits();
+ if(k==='shelter'&&!S.noticed.has('pangolin'))say('Something small moves by the roots. Look east.',3.5);
  if(k==='scary'&&S.loop>1&&!S.talk)say('The old tortoise. It looks at me as if it knows me.',4);
  if(k==='refuge'){if(S.follow)return win();say('A protected refuge. The pangolin should be here, not me alone.',4);}
- if(N[k].water)strG&&strG.gain.setTargetAtTime(.05,AC.currentTime,.5);else strG&&strG.gain.setTargetAtTime(0,AC.currentTime,.5);}
-function renderExits(){const e=N[S.node].ex,c=$('exits');c.innerHTML='';const pos={W:'up',A:'l',D:'r',S:'dn'},key={W:'W',A:'A',D:'D',S:'S'};
- for(const d in e){const b=document.createElement('div');b.className='exit '+pos[d];b.innerHTML=`<kbd>${key[d]}</kbd>${e[d][1]}`;b.onclick=()=>go(d);c.appendChild(b);}}
+ if(AC){strG.gain.setTargetAtTime(LOC[k].water?.02:0,AC.currentTime,.5);watG.gain.setTargetAtTime(LOC[k].water?.9:0,AC.currentTime,.6);}}
+function renderExits(){const c=$('exits');c.innerHTML='';const L=(cls,key,txt,d)=>{const b=document.createElement('div');b.className='exit '+cls;b.innerHTML=`<kbd>${key}</kbd>${txt}`;b.onclick=()=>go(d);c.appendChild(b);};
+ const fwd=ahead(S.node,S.face),i=DIRS.indexOf(S.face);
+ L('up','W',fwd&&!BLOCK[S.node+'>'+fwd]?'WALK ON · '+LOC[fwd].name:'NO PATH AHEAD','W');L('l','A','TURN · '+DNAME[DIRS[(i+3)%4]],'A');L('r','D','TURN · '+DNAME[DIRS[(i+1)%4]],'D');L('dn','S','TURN AROUND','S');
+ $('place').textContent=LOC[S.node].name+'  ·  FACING '+DNAME[S.face];}
 function sense(k){if(S.cin||S.paused)return;if(k!=='human'&&S.energy<.12){say('Too tired to borrow another sense.',2.5);return;}S.sense=k;[...$('senses').children].forEach(b=>b.classList.toggle('on',b.dataset.s===k));banner(SENSE[k].label);SFX.ui();S.flash=1;
  if(k==='bird')SFX.bird();}
 $('senses').addEventListener('click',e=>{const b=e.target.closest('button');if(b)sense(b.dataset.s);});
@@ -296,11 +314,11 @@ $('senses').addEventListener('click',e=>{const b=e.target.closest('button');if(b
 const keys={};
 addEventListener('keydown',e=>{if(e.repeat&&e.code!=='KeyT')return;keys[e.code]=1;if(S.mode!=='play')return;
  if(['Space','ArrowUp','ArrowDown','ArrowLeft','ArrowRight'].includes(e.code))e.preventDefault();
- if(e.code==='Escape'){if(!$('s_ins').hidden){$('ic').hidden||$('ic').click();return;}if(!$('maps').hidden||!$('s_info').hidden||!$('s_jour').hidden){closeOver();return;}return pause();}
+ if(e.code==='Escape'){if(!$('s_ins').hidden){$('ic').hidden||$('ic').click();return;}if(!$('maps').hidden||!$('s_info').hidden||!$('s_jour').hidden||!$('s_dt').hidden){closeOver();return;}return pause();}
  if(S.paused)return;const m={KeyW:'W',ArrowUp:'W',KeyS:'S',ArrowDown:'S',KeyA:'A',ArrowLeft:'A',KeyD:'D',ArrowRight:'D'};if(m[e.code])go(m[e.code]);
  const sm={Digit1:'human',Digit2:'bird',Digit3:'frog',Digit4:'leopard',Numpad1:'human',Numpad2:'bird',Numpad3:'frog',Numpad4:'leopard'};if(sm[e.code])sense(sm[e.code]);
  if(e.code==='Tab')e.preventDefault();if(e.code==='KeyQ'||e.code==='KeyP'||e.code==='Tab'){const o=['human','bird','frog','leopard'];sense(o[(o.indexOf(S.sense)+1)%4]);}
- if(e.code==='KeyV'){vol.muted=!vol.muted;MG&&(MG.gain.value=vol.muted?0:vol.m);feed(vol.muted?'SOUND OFF':'SOUND ON');}if(e.code==='KeyE')act();if(e.code==='KeyM')openMap();if(e.code==='KeyJ')openJour();if(e.code==='KeyI')openInfo();});
+ if(e.code==='KeyN'){nextDay();return;}if(e.code==='KeyC'){openDT();return;}if(e.code==='BracketRight'||e.code==='BracketLeft'){shiftTime(e.code==='BracketRight'?60:-60);return;}if(e.code==='KeyV'){vol.muted=!vol.muted;MG&&(MG.gain.value=vol.muted?0:vol.m);feed(vol.muted?'SOUND OFF':'SOUND ON');}if(e.code==='KeyE')act();if(e.code==='KeyM')openMap();if(e.code==='KeyJ')openJour();if(e.code==='KeyI')openInfo();});
 addEventListener('keyup',e=>keys[e.code]=0);
 addEventListener('wheel',e=>{if(S.mode!=='play'||S.paused||S.cin)return;const o=['human','bird','frog','leopard'];sense(o[(o.indexOf(S.sense)+(e.deltaY>0?1:3))%4]);},{passive:true});
 function lock(){try{const p=cv.requestPointerLock();p&&p.catch&&p.catch(()=>{});}catch(_){}}
@@ -310,28 +328,33 @@ addEventListener('mousemove',e=>{if(S.mode!=='play'||S.paused||S.cin)return;let 
  S.lx=Math.max(-1,Math.min(1,S.lx+dx*.0022*vol.sens));S.ly=Math.max(-1,Math.min(1,S.ly+dy*.0022*vol.sens));});
 document.addEventListener('pointerlockchange',()=>{});
 // ---------- overlays
+function shiftTime(dm){if(S.mode!=='play'||S.cin||S.ending)return;S.min=Math.max(DAY0,Math.min(SUNSET-2,S.min+dm));S.warned=0;feed('TIME · '+hm(S.min));}
+function setDay(n){S.loop=n;$('dayl').textContent=`DAY ${String(n).padStart(2,'0')} · LOOP ${n}`;feed('DAY '+n+(n>1?' · THE FOREST REMEMBERS YOU':''));objective();}
+function openDT(){over('s_dt');const d=$('dt_days');d.innerHTML='';[1,2,3,4].forEach(n=>{const b=document.createElement('button');b.className='btn'+(S.loop===n?'':' g');b.textContent='DAY '+n;b.onclick=()=>{setDay(n);openDT();};d.appendChild(b);});
+ const t=$('dt_times');t.innerHTML='';[['DAWN',6*60+15],['MORNING',9*60],['NOON',12*60],['AFTERNOON',15*60],['GOLDEN HOUR',17*60],['DUSK',18*60+20],['LAST LIGHT',18*60+40]].forEach(([l,m])=>{const b=document.createElement('button');b.className='btn'+(Math.abs(S.min-m)<45?'':' g');b.textContent=l+' · '+hm(m);b.onclick=()=>{S.min=m;S.warned=m>=SUNSET-90?1:0;openDT();};t.appendChild(b);});}
+function nextDay(){if(S.mode!=='play'||S.ending||S.cin)return;screen(null);S.paused=0;S.min=SUNSET;feed('SKIPPING TO NIGHTFALL');sunset();}
 function pause(){if(S.paused&&!$('s_pause').hidden)return resume();S.paused=1;document.exitPointerLock&&document.exitPointerLock();screen('s_pause');}
 function resume(){screen(null);S.paused=0;lock();}
 function closeOver(){screen(S.wasPaused?'s_pause':null);if(!S.wasPaused){S.paused=0;lock();}}
 function over(id){S.wasPaused=!$('s_pause').hidden;S.paused=1;document.exitPointerLock&&document.exitPointerLock();screen(id);}
 function openInfo(){over('s_info');$('infoh').textContent=objective();const c=$('infoc');c.innerHTML='';[['NOW',objective()],['THE CLUES',['Canopy marker · Bird (2)','Water crossing · Frog (3)','Field record · after the tortoise speaks','Track junction · Leopard (4)'].map((t,i)=>(S.clues[i]?'✓ ':'○ ')+t).join('\n')],
- ['AT SUNSET','If the pangolin is not at the refuge by 18:45, the day loops. Your journal and points carry over; the forest resets.'],['NOTICING','Hold your gaze on things to notice them. A ring means you can inspect with E. Senses drain energy; human eyes recharge it.']].forEach(([b,p])=>{const d=document.createElement('div');d.className='card';d.innerHTML=`<b>${b}</b><p style="white-space:pre-line">${p}</p>`;c.appendChild(d);});}
+ ['DAY & TIME','Press C (or the clock button) to jump to any day or time of day. [ and ] move the clock one hour.'],['AT SUNSET','If the pangolin is not at the refuge by 18:45, the day loops. Your journal and points carry over; the forest resets. Press N (or ⏭ at the top right) to skip straight to the next day.'],['NOTICING','Hold your gaze on things to notice them. A ring means you can inspect with E. Senses drain energy; human eyes recharge it.']].forEach(([b,p])=>{const d=document.createElement('div');d.className='card';d.innerHTML=`<b>${b}</b><p style="white-space:pre-line">${p}</p>`;c.appendChild(d);});}
 function openJour(){over('s_jour');const c=$('jc');c.innerHTML='';Object.values(CLUE).forEach(cl=>{const d=document.createElement('div');d.className='card';const on=S.clues[cl.n];d.style.opacity=on?1:.45;d.innerHTML=`${on?`<img src="${src(cl.img)}" alt="" style="width:100%;height:120px;object-fit:cover;margin-bottom:8px">`:''}<b>${cl.tag}</b><p>${on?cl.h:'Not yet noticed. Needs: '+cl.sense+'.'}</p>`;c.appendChild(d);});
  const d=document.createElement('div');d.className='card';d.innerHTML=`<b>NOTICED · ${S.noticed.size}</b><p>${[...S.noticed].join(', ')||'Nothing yet.'}</p>`;c.appendChild(d);}
 function openMap(){over('maps');drawMap($('bigmap'),1);}
 $('info_x').onclick=$('jour_x').onclick=$('map_x').onclick=closeOver;$('infob').onclick=openInfo;$('pauseb').onclick=pause;$('mini').onclick=openMap;
 $('p_res').onclick=resume;$('p_obj').onclick=openInfo;$('p_jour').onclick=openJour;$('p_map').onclick=openMap;$('p_set').onclick=()=>{S.wasPaused=1;screen('s_set');setBack='s_pause';};
-$('p_rest').onclick=()=>{screen(null);startLoop(false);};$('p_quit').onclick=()=>{S.mode='menu';show('hud',0);screen('s_menu');};
-function drawMap(c,big){const x=c.getContext('2d'),w=c.width,h=c.height,im=IMG.river;x.fillStyle='#050906';x.fillRect(0,0,w,h);
- let sc,ox,oy;if(big){sc=Math.max(w/im.naturalWidth,h/im.naturalHeight*0)||1;sc=w/im.naturalWidth;ox=0;oy=-(im.naturalHeight*sc-h)*.32;}
- else{const n=N[S.node];sc=w/im.naturalWidth*2.2;ox=w/2-n.map[0]*im.naturalWidth*sc;oy=h/2-n.map[1]*im.naturalHeight*sc;}
- x.filter='brightness(.62) saturate(.7) contrast(1.1)';x.drawImage(im,ox,oy,im.naturalWidth*sc,im.naturalHeight*sc);x.filter='none';
- const P=k=>[ox+N[k].map[0]*im.naturalWidth*sc,oy+N[k].map[1]*im.naturalHeight*sc];
- x.strokeStyle='rgba(236,231,214,.35)';x.setLineDash([6,8]);x.lineWidth=big?2:3;for(const k in N)for(const d in N[k].ex){const[a,b]=P(k),[c2,d2]=P(N[k].ex[d][0]);x.beginPath();x.moveTo(a,b);x.lineTo(c2,d2);x.stroke();}x.setLineDash([]);
- if(S.route){x.strokeStyle='#c3dc9a';x.lineWidth=big?4:6;x.beginPath();['shelter','oak','darkpath','refuge'].forEach((k,i)=>{const[a,b]=P(k);i?x.lineTo(a,b):x.moveTo(a,b);});x.stroke();}
+$('p_next').onclick=nextDay;$('p_dt').onclick=openDT;$('dtb').onclick=openDT;$('dt_x').onclick=closeOver;$('nextb').onclick=nextDay;$('p_rest').onclick=()=>{screen(null);startLoop(false);};$('p_quit').onclick=()=>{S.mode='menu';show('hud',0);screen('s_menu');};
+function drawMap(c,big){const x=c.getContext('2d'),w=c.width,h=c.height,im=IMG.river;x.fillStyle='#050906';x.fillRect(0,0,w,h);if(!im.naturalWidth)return;
+ let sc,ox,oy;if(big){sc=w/im.naturalWidth;ox=0;oy=-(im.naturalHeight*sc-h)*.32;}else{const n=LOC[S.node];sc=w/im.naturalWidth*2.2;ox=w/2-n.map[0]*im.naturalWidth*sc;oy=h/2-n.map[1]*im.naturalHeight*sc;}
+ x.filter='brightness(.6) saturate(.7) contrast(1.1)';x.drawImage(im,ox,oy,im.naturalWidth*sc,im.naturalHeight*sc);x.filter='none';
+ const P=k=>[ox+LOC[k].map[0]*im.naturalWidth*sc,oy+LOC[k].map[1]*im.naturalHeight*sc];
+ x.strokeStyle='rgba(236,231,214,.3)';x.setLineDash([6,8]);x.lineWidth=big?2:3;for(const k in LOC)for(const f of ['E','S']){const n=ahead(k,f);if(n&&!BLOCK[k+'>'+n]){const[a,b]=P(k),[c2,d2]=P(n);x.beginPath();x.moveTo(a,b);x.lineTo(c2,d2);x.stroke();}}x.setLineDash([]);
+ if(S.route){x.strokeStyle='#c3dc9a';x.lineWidth=big?4:6;x.beginPath();['shelter','mist','hollow','trail','darkpath','refuge'].forEach((k,i)=>{const[a,b]=P(k);i?x.lineTo(a,b):x.moveTo(a,b);});x.stroke();}
  const fs=big?22:30;x.font=`700 ${fs}px Rajdhani,sans-serif`;x.textBaseline='middle';
- for(const k in N){const[a,b]=P(k),cur=k===S.node,vis=S.visited.has(k);x.save();x.translate(a,b);x.rotate(Math.PI/4);x.fillStyle=cur?'#e3a456':vis?'#c3dc9a':'rgba(236,231,214,.35)';const s=cur?11:8;x.fillRect(-s,-s,s*2,s*2);x.restore();
-  if(big||cur){x.fillStyle=cur?'#e3a456':'#ece7d6';x.shadowColor='#000';x.shadowBlur=6;x.fillText(vis||big?N[k].name:'?',a+18,b);x.shadowBlur=0;}}
+ for(const k in LOC){const[a,b]=P(k),cur=k===S.node,vis=S.visited.has(k);x.save();x.translate(a,b);x.rotate(Math.PI/4);x.fillStyle=cur?'#e3a456':vis?'#c3dc9a':'rgba(236,231,214,.35)';const s2=cur?11:8;x.fillRect(-s2,-s2,s2*2,s2*2);x.restore();
+  if(cur){const d=DV[S.face];x.strokeStyle='#e3a456';x.lineWidth=big?3:5;x.beginPath();x.moveTo(a,b);x.lineTo(a+d[0]*(big?34:60),b+d[1]*(big?34:60));x.stroke();}
+  if(big||cur){x.fillStyle=cur?'#e3a456':'#ece7d6';x.shadowColor='#000';x.shadowBlur=6;x.fillText(vis||big?LOC[k].name:'?',a+18,b+(cur&&!big?-28:0));x.shadowBlur=0;}}
  if(!big){x.strokeStyle='rgba(195,220,154,.35)';x.strokeRect(1,1,w-2,h-2);}}
 // ---------- menus
 let setBack='s_menu';
@@ -339,16 +362,18 @@ document.querySelectorAll('[data-back]').forEach(b=>b.onclick=()=>{SFX.ui();scre
 $('m_how').onclick=()=>{audio();SFX.ui();setBack='s_menu';screen('s_how');};$('m_set').onclick=()=>{audio();SFX.ui();setBack='s_menu';screen('s_set');};$('m_cred').onclick=()=>{audio();SFX.ui();setBack='s_menu';screen('s_cred');};
 const setVol=x=>{vol.m=x;vol.muted=false;MG&&(MG.gain.value=x);$('v_master').value=x;$('hvol').value=x;};$('v_master').oninput=e=>setVol(+e.target.value);$('hvol').oninput=e=>setVol(+e.target.value);$('v_amb').oninput=e=>{vol.a=+e.target.value;AMB&&(AMB.gain.value=vol.a);};$('v_sens').oninput=e=>vol.sens=+e.target.value;$('v_subs').onchange=e=>vol.subs=e.target.checked;
 $('m_new').onclick=async()=>{audio();SFX.ui();fresh();screen('s_load');const tips=['Tip: the forest repeats. You do not.','Tip: hold your gaze to notice.','Tip: some clues need another creature’s senses.'];let ti=0;const iv=setInterval(()=>$('tip').textContent=tips[++ti%3],1800);
- ['oak','mist','shelter','stream','crossing','darkpath','frogA','frogW','birdA','birdB','intro1','intro2','walk1','walk2','walk3','walk4'].forEach(k=>vid(k).load());await loadAll(p=>$('loadi').style.width=(p*100)+'%');await wait(700);clearInterval(iv);screen('s_brief');$('s_brief').style.backgroundImage=`url(${src('sunrise')})`;};
-$('b_go').onclick=()=>{SFX.ui();startLoop(true);};
+ [...new Set([].concat(...Object.values(LOC).map(L=>Object.values(L.v).map(v=>v.k).filter(k=>!k.startsWith('img:')))))].concat(['frogA','frogW','birdA','birdB','intro1','intro2','walk1','walk2','walk3','walk4']).forEach(k=>vid(k).load());await loadAll(p=>$('loadi').style.width=(p*100)+'%');await wait(700);clearInterval(iv);screen('s_brief');$('s_brief').style.backgroundImage=`url(${src('sunrise')})`;};
+$('b_go').onclick=()=>{SFX.ui();enterInst();};
+let instIv=null;function enterInst(){screen('s_enter');const pics=['inst_portal','inst_corridor','inst_tunnel','inst_birch','inst_projection','inst_room'];let i=0;const set=()=>{$('s_enter').style.backgroundImage=`url(${src(pics[i%pics.length])})`;i++;};set();clearInterval(instIv);instIv=setInterval(set,2600);}
+$('b_inside').onclick=()=>{clearInterval(instIv);SFX.ui();startLoop(true);};
 async function countdown(label){screen('s_count');$('countl').textContent=label;for(const n of [3,2,1]){$('count').textContent=n;SFX.beep();await wait(900);}$('count').textContent='';}
 async function startLoop(first){fresh(!first);if(first)S.loop=1;S.mode='play';S.paused=1;$('dayl').textContent=`DAY 01 · LOOP ${S.loop}`;[...$('dia').children].forEach((d,i)=>d.classList.toggle('on',!!S.clues[i]));$('score').textContent=S.score;
  await countdown(first?'DAY 01 BEGINS IN':`LOOP ${S.loop} BEGINS IN`);screen(null);fade(0,600);
  const shots=first?[{vid:'intro1',d:5,z0:1.05,z1:1.25,ay0:.5,ay1:.5,text:'SOMEWHERE IN THE RAINFOREST',f:'brightness(.72) saturate(.85) contrast(1.08)'},{vid:'intro2',d:4.5,z0:1.1,z1:1.45,ay0:.5,ay1:.6,text:'06:12 · DAY 01',f:'brightness(.78) saturate(.85) contrast(1.08)'},{img:'wake',d:3.8,z0:1.25,z1:1.1,ay0:.3,ay1:.45,lids:1,f:'brightness(.85) saturate(.9)'}]
   :[{img:'wake',d:3.6,z0:1.25,z1:1.1,ay0:.3,ay1:.45,lids:1,text:'THE SAME MORNING',f:'brightness(.85) saturate(.9)'}];
  S.cin={shots,i:0,t:0};show('hud',0);S.paused=0;}
-function endCin(){S.cin=null;S.node='camp';S.min=DAY0+12;arrive('camp');show('hud',1);objective();SFX.rustle(2);
- if(S.loop===1){say('Morning. I wake at the camp. “Be back before sunset.”',4.5);setTimeout(()=>say('Something lives near a shelter past the misty trail. Press A to take it.',5),4800);}
+function endCin(){S.cin=null;S.node='camp';S.face='N';S.min=DAY0+12;arrive('camp');show('hud',1);objective();SFX.rustle(2);
+ if(S.loop===1){say('Morning. I wake at the camp. “Be back before sunset.”',4.5);setTimeout(()=>say('Something lives near a shelter to the south-east. Turn with A and D, walk with W.',5),4800);}
  else{say('The same bird. The same light. No… this already happened.',4.5);setTimeout(()=>say(S.talk?'I remember everything. Use it.':'The old tortoise by the twisted tree. Maybe it remembers too.',5),4800);}lock();}
 async function sunset(){S.ending=1;S.paused=1;document.exitPointerLock&&document.exitPointerLock();SFX.hit();fade(1,1500);await wait(1600);screen('s_loop');$('s_loop').style.backgroundImage=`url(${src('moonroots')})`;fade(0,800);
  $('loope').textContent='22:07 · INSIDE THE TENT';$('looph').textContent='A distant gunshot.';$('loopp').textContent='';await wait(900);SFX.gun();await wait(2600);
@@ -365,11 +390,12 @@ function frame(now){requestAnimationFrame(frame);const dt=Math.min(.05,(now-last
   if(S.cin){S.cin.t+=dt;if(S.cin.t>S.cin.shots[S.cin.i].d){S.cin.i++;S.cin.t=0;if(S.cin.i>=S.cin.shots.length)endCin();}}
   else{S.min+=dt*(SUNSET-DAY0)/REAL*(keys.KeyT?10:1);
    if(S.sense!=='human'){S.energy-=SENSE[S.sense].cost*dt;if(S.energy<=0){S.energy=0;sense('human');say('The borrowed sense fades.',2.5);}}else S.energy=Math.min(1,S.energy+dt*.05);
+   if(S.turn){S.turn.t+=dt;if(S.turn.t>=S.turn.d)S.turn=null;}
    if(S.walk){S.walk.t+=dt;if(S.walk.t>=S.walk.d){const to=S.walk.to;S.walk=null;arrive(to);}}
    const left=SUNSET-S.min;if(left<=0&&!S.ending)sunset();if(left<90&&!S.warned){S.warned=1;SFX.hit();banner('THE SUN IS SETTING');say('The light is going.',3);}
    if(left<40&&left>0&&Math.floor(now/500)!==lastTick){lastTick=Math.floor(now/500);SFX.tick();}
    birdT-=dt;if(birdT<0){birdT=4+Math.random()*7;if(S.min<18*60)SFX.bird();}
-   if(AC){const night=grade(S.min).night;crkG.gain.value=night*.05;}
+   if(AC){const night=grade(S.min).night;crkG.gain.value=night*.05;recG.gain.value=.75*(1-night*.6);}
    if(!S.walk)updateGaze(dt);}}
  if(S.mode==='play'||S.mode==='won')draw(dt);else{drawMenuBG(dt);}
  if(S.mode==='play'&&!S.cin){const left=Math.max(0,SUNSET-S.min);$('clock').textContent=hm(S.min);$('sunl').textContent=left>0?`SUNSET IN ${String(Math.floor(left/60)).padStart(2,'0')}:${String(Math.floor(left%60)).padStart(2,'0')}`:'NIGHT';
@@ -383,7 +409,7 @@ let MT=0;function drawMenuBG(dt){MT+=dt;const v=vid('menu');useV(v);g.fillStyle=
 IMG.river=new Image();IMG.river.src=src('river');
 fade(0,1200);requestAnimationFrame(frame);
 setTimeout(()=>{fade(1,500);setTimeout(()=>{screen('s_menu');$('s_menu').style.background='transparent';fade(0,900);},550);},2200);
-function aim(id){const n=N[S.node],h=n.hot.find(q=>q.id===id);const P=pick();if(!P)return 'na';let best=[1e9,0,0];
+function aim(id){const n=CV(),h=n.hot.find(q=>q.id===id);const P=pick();if(!P)return 'na';let best=[1e9,0,0];
  for(let a=-1;a<=1;a+=.05)for(let b=-1;b<=1;b+=.05){S.lx=a;S.ly=b;const L=layout(P,P.zoom,P.ay);const x=L.x+h.x*P.w*L.s,y=L.y+h.y*P.h*L.s,d=Math.hypot(x-W/2,y-H/2);if(d<best[0])best=[d,a,b];}
  S.lx=best[1];S.ly=best[2];return Math.round(best[0])+'/'+Math.round(h.r*Math.min(W,H)*1.1);}
 window.__G={get target(){return target},get gz(){return gaze},aim,get S(){return S},N,go,sense,act:()=>act(),arrive,sunset,win,openMap,openInfo,openJour,pause,startLoop,endCin,loadAll,screen,inspect};
