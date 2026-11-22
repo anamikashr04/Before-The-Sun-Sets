@@ -201,7 +201,7 @@ function env(gn,t,a,p,d){gn.gain.setValueAtTime(0,t);gn.gain.linearRampToValueAt
 function tone(f,d,p,f2,type,dest){if(!AC)return;const t=AC.currentTime,o=AC.createOscillator(),q=AC.createGain();o.type=type||'sine';o.frequency.setValueAtTime(f,t);if(f2)o.frequency.exponentialRampToValueAtTime(f2,t+d);env(q,t,.008,p,d);o.connect(q).connect(dest||MG);o.start(t);o.stop(t+d+.05);}
 function nz(d,p,lo,hi,dest,delay){if(!AC)return;const t=AC.currentTime+(delay||0),b=AC.createBuffer(1,AC.sampleRate*d,AC.sampleRate),x=b.getChannelData(0);for(let i=0;i<x.length;i++)x[i]=Math.random()*2-1;const s=AC.createBufferSource();s.buffer=b;
  const f1=AC.createBiquadFilter();f1.type='highpass';f1.frequency.value=lo;const f2=AC.createBiquadFilter();f2.type='lowpass';f2.frequency.value=hi;const q=AC.createGain();env(q,t,.006,p,d);s.connect(f1).connect(f2).connect(q).connect(dest||MG);s.start(t);}
-const SFX={rustle:(k)=>{for(let i=0;i<(k||3);i++){nz(.18,.12,1800,7000,AMB,i*.33);nz(.12,.18,60,400,AMB,i*.33);}},
+const SFX={frog:()=>{if(!AC)return;const t0=AC.currentTime;for(let k=0;k<3;k++){const t=t0+k*.36,o=AC.createOscillator(),q=AC.createGain();o.type='sawtooth';o.frequency.setValueAtTime(92*(1+(Math.random()-.5)*.1),t);[[520,6,1],[1350,8,.55],[2300,10,.25]].forEach(([f,Q,v])=>{const b=AC.createBiquadFilter();b.type='bandpass';b.frequency.value=f;b.Q.value=Q;const gg=AC.createGain();gg.gain.value=v;o.connect(b).connect(gg).connect(q);});q.gain.setValueAtTime(0,t);q.gain.linearRampToValueAtTime(.9,t+.03);q.gain.setValueAtTime(.9,t+.12);q.gain.linearRampToValueAtTime(0,t+.17);q.connect(AMB);o.start(t);o.stop(t+.2);}},rustle:(k)=>{for(let i=0;i<(k||3);i++){nz(.18,.12,1800,7000,AMB,i*.33);nz(.12,.18,60,400,AMB,i*.33);}},
  bird:()=>{const f=2400+Math.random()*1200,n=2+Math.floor(Math.random()*3);for(let i=0;i<n;i++)setTimeout(()=>tone(f*(1+Math.random()*.15),.12,.018,f*1.25,'sine',AMB),i*140);},
  ui:()=>tone(880,.08,.04),chime:()=>{tone(659,1.8,.09);setTimeout(()=>tone(988,1.6,.07),140);},notice:()=>tone(1320,.5,.035),
  gun:()=>{nz(1.8,.5,40,900);tone(52,1.4,.3,30);},hit:()=>{tone(44,3.2,.22,40,'sawtooth');nz(2,.12,30,200);},rewind:()=>{tone(160,2.4,.06,2400,'sawtooth');nz(2.4,.08,500,4000);},
@@ -308,7 +308,7 @@ function renderExits(){const c=$('exits');c.innerHTML='';const L=(cls,key,txt,d)
  const fwd=ahead(S.node,S.face),i=DIRS.indexOf(S.face);
  L('up','W',fwd&&!BLOCK[S.node+'>'+fwd]?'WALK ON · '+LOC[fwd].name:'NO PATH AHEAD','W');L('l','A','TURN · '+DNAME[DIRS[(i+3)%4]],'A');L('r','D','TURN · '+DNAME[DIRS[(i+1)%4]],'D');L('dn','S','TURN AROUND','S');
  $('place').textContent=LOC[S.node].name+'  ·  FACING '+DNAME[S.face];}
-function sense(k){if(S.cin||S.paused)return;if(k!=='human'&&S.energy<.12){say('Too tired to borrow another sense.',2.5);return;}S.sense=k;(S.used=S.used||new Set()).add(k);[...$('senses').children].forEach(b=>b.classList.toggle('on',b.dataset.s===k));banner(SENSE[k].label);SFX.ui();S.flash=1;
+function sense(k){if(S.cin||S.paused)return;if(k!=='human'&&S.energy<.12){say('Too tired to borrow another sense.',2.5);return;}S.sense=k;(S.used=S.used||new Set()).add(k);if(k==='frog')SFX.frog();[...$('senses').children].forEach(b=>b.classList.toggle('on',b.dataset.s===k));banner(SENSE[k].label);SFX.ui();S.flash=1;
  if(k==='bird')SFX.bird();}
 $('senses').addEventListener('click',e=>{const b=e.target.closest('button');if(b)sense(b.dataset.s);});
 // ---------- input
@@ -377,7 +377,7 @@ function endCin(){S.cin=null;S.node='camp';S.face='N';S.min=DAY0+12;arrive('camp
  if(S.loop===1){say('Breathe in. Listen to the forest.',4.5);setTimeout(()=>say('Something lives near a shelter to the south-east. Turn with A and D, walk with W.',5),4800);}
  else{say('The same bird. The same light. We have been here before.',4.5);setTimeout(()=>say(S.talk?'I remember everything. Use it.':'The old tortoise by the twisted tree. Maybe it remembers too.',5),4800);}lock();}
 async function sunset(){S.ending=1;S.paused=1;document.exitPointerLock&&document.exitPointerLock();fade(1,1500);await wait(1600);screen('s_loop');$('s_loop').style.backgroundImage=`url(${src('moonroots')})`;fade(0,800);
- $('loope').textContent='19:00 · NIGHTFALL';$('looph').textContent='The pangolin is taken.';$('loopp').textContent='Owls call. The poachers came at sunset.';await wait(3400);
+ $('loope').textContent='19:00 · NIGHTFALL';$('looph').textContent='A distant gunshot.';$('loopp').textContent='';SFX.gun();await wait(2200);$('looph').textContent='The pangolin is taken.';$('loopp').textContent='The poachers came at sunset.';await wait(3400);
  SFX.chime();$('loope').textContent='◀◀  06:12';$('looph').textContent='Morning comes again.';$('loopp').textContent='You remember everything. This time, you can save it.';await wait(3400);
  screen('s_res');$('s_res').style.backgroundImage=`url(${src('scary')})`;$('rese').textContent=`DAY ${S.loop} · YOUR NOTICING REPORT`;$('resh').textContent='A new morning.';$('r_next').textContent=`START DAY ${S.loop+1}`;
  report($('resc'),S.loop===1?'Find the old tortoise by the twisted tree. It remembers too.':'Try a sense you have not used yet.');S.ending=0;}
