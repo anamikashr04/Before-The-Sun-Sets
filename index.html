@@ -161,7 +161,7 @@ const LOC={
  darkpath:{name:'COVERED PASSAGE',g:[1,0],v:{N:V('darkpath',{hot:[{id:'c3',sense:'leopard',x:.45,y:.6,r:.09,label:'Tracks, crossing each other'}]}),E:V('c25'),S:V('c76'),W:V('c157')}},
  scary:{name:'THE TWISTED TREE',g:[2,0],v:{N:V('img:scary',{ly:.85,hot:[{id:'tortoise',x:.58,y:.81,r:.09,label:'Talk to the old tortoise'},{id:'c2',x:.43,y:.86,r:.07,label:'A notebook, half buried',needT:1},{id:'hands',x:.5,y:.4,r:.09,note:'Branches like reaching hands',pts:15}],spr:[{k:'tortoise',x:.58,y:.875,h:.2}]}),E:V('c22',{flip:1}),S:V('c73',{flip:1}),W:V('c157',{flip:1})}},
  grove:{name:'FLOODED GROVE',g:[0,1],water:1,v:{N:V('c99',{hot:[{id:'flood',x:.5,y:.6,r:.1,note:'Trees standing in floodwater',pts:15}]}),E:V('c122'),S:V('c127'),W:V('c22')}},
- trail:{name:'THE FOREST TRAIL',g:[1,1],bv:'birdB',v:{N:V('oak',{hot:[{id:'vines',x:.5,y:.45,r:.08,note:'Vines hanging over the trail',pts:10}]}),E:V('c41',{hot:[{id:'hornbill',x:.36,y:.42,r:.08,note:'A hornbill, watching from a branch',pts:25}],spr:[{k:'hornbill',x:.36,y:.5,h:.2}]}),S:V('c7'),W:V('c146')}},
+ trail:{name:'THE FOREST TRAIL',g:[1,1],bv:'birdB',v:{N:V('oak',{hot:[{id:'vines',x:.5,y:.45,r:.08,note:'Vines hanging over the trail',pts:10},{id:'c0',sense:'bird',x:.5,y:.45,r:.11,label:'A red cord, high in the canopy'}]}),E:V('c41',{hot:[{id:'hornbill',x:.36,y:.42,r:.08,note:'A hornbill, watching from a branch',pts:25}],spr:[{k:'hornbill',x:.36,y:.5,h:.2}]}),S:V('c7'),W:V('c146')}},
  hollow:{name:'THE DARK HOLLOW',g:[2,1],v:{N:V('darkpath',{flip:1}),E:V('c25',{flip:1}),S:V('c76',{flip:1}),W:V('c7',{flip:1})}},
  stream:{name:'THE STREAM',g:[0,2],water:1,v:{N:V('stream',{hot:[{id:'bfly',x:.55,y:.5,r:.1,note:'Water running over smooth rock',pts:15}]}),E:V('c128'),S:V('c130'),W:V('c63')}},
  camp:{name:'CAMP',g:[1,2],v:{N:V('img:camp',{hot:[{id:'board',x:.6,y:.6,r:.07,label:'Read the map board'},{id:'fire',x:.5,y:.63,r:.06,note:'The campfire, still warm',pts:10}]}),E:V('c64'),S:V('c65'),W:V('c158')}},
@@ -224,7 +224,15 @@ let subT=0,banT=0;function say(t,s,col){if(!vol.subs&&!col)return;$('sub').textC
 function banner(t,s){$('banner').textContent=t;$('banner').style.opacity=1;banT=s||2.6;}
 function nClues(){return S.clues.filter(Boolean).length;}
 function objective(){let t;if(S.follow)t='Lead the pangolin through the covered passage to the refuge before sunset.';else if(S.route)t='Go to the shelter and guide the pangolin.';else if(nClues()===4)t='Choose the safe route on the camp map board.';
- else if(!S.noticed.has('pangolin'))t='Find the pangolin’s shelter: east of camp to the misty trail, then south.';else if(S.loop>1&&!S.talk)t=`Find the old tortoise by the twisted tree. Clues ${nClues()}/4.`;else t=`Find signs of who is coming. Clues ${nClues()}/4.`;$('objt').textContent=t;return t;}
+ else if(!S.noticed.has('pangolin'))t='Find the pangolin’s shelter: east of camp to the misty trail, then south.';else if(S.loop>1&&!S.talk)t=`Find the old tortoise by the twisted tree. Clues ${nClues()}/4.`;else t=`Clues ${nClues()}/4. Next: ${clueHint()}`;$('objt').textContent=t;return t;}
+const CLOC={c0:['trail','N','bird','2'],c1:['crossing','N','frog','3'],c2:['scary','N','human','1'],c3:['darkpath','N','leopard','4']};
+function nextClue(){for(const id of ['c0','c1','c3','c2']){if(S.clues[CLUE[id].n])continue;if(id==='c2'&&!S.talk&&S.loop<2)continue;return id;}return null;}
+function way(k){const a=LOC[S.node].g,b=LOC[k].g,dx=b[0]-a[0],dy=b[1]-a[1];if(!dx&&!dy)return 'you are here';const p=[];if(dy)p.push(`${Math.abs(dy)} ${dy<0?'north':'south'}`);if(dx)p.push(`${Math.abs(dx)} ${dx>0?'east':'west'}`);return p.join(', ');}
+function clueHint(){const id=nextClue();if(!id)return S.loop<2&&!S.talk?'the last clue appears after you meet the tortoise (day 2).':'go back to camp and choose the route.';const[k,f,s,key]=CLOC[id];return `${LOC[k].name.toLowerCase()} (${way(k)}). Face ${DNAME[f].toLowerCase()} and use ${s.toUpperCase()} (key ${key}).`;}
+function hintBar(){let el=$('cluehint');if(!el){el=document.createElement('div');el.id='cluehint';el.style.cssText='position:fixed;left:50%;top:18px;transform:translateX(-50%);z-index:5;padding:10px 22px;border-radius:999px;background:rgba(27,94,14,.92);color:#f3eedd;font:600 15px Inter,sans-serif;letter-spacing:.06em;pointer-events:none;box-shadow:0 0 24px rgba(120,200,90,.35);transition:opacity .3s';document.body.appendChild(el);}
+ const live=S.mode==='play'&&!S.cin&&!S.paused;const id=live?nextClue():null;let t='';
+ if(live&&S.follow)t=`LEAD THE PANGOLIN TO THE REFUGE · ${way('refuge').toUpperCase()}`;else if(live&&S.route)t=`GO TO THE PANGOLIN · ${way('shelter').toUpperCase()}`;else if(live&&!S.noticed.has('pangolin'))t=S.node==='shelter'?'THE PANGOLIN IS HERE · TURN TO FACE EAST AND LOOK':`FIRST · FIND THE PANGOLIN · ${way('shelter').toUpperCase()}`;else if(live&&!id&&nClues()===4)t=`ALL CLUES FOUND · CHOOSE THE ROUTE ON THE CAMP MAP · ${way('camp').toUpperCase()}`;else if(id){const[k,f,s,key]=CLOC[id];if(S.node===k){t=S.face!==f?`A CLUE IS HERE · TURN TO FACE ${DNAME[f]}`:S.sense!==s?`A CLUE IS HERE · PRESS ${key} FOR ${s.toUpperCase()} SENSE`:'LOOK FOR THE GLOWING RING · PRESS E';}else t=`NEXT CLUE · ${LOC[k].name} · ${way(k).toUpperCase()}`;}
+ el.textContent=t;el.style.opacity=t?1:0;}
 // ---------- view geometry: where an image point lands on screen
 let VT={x:0,y:0,s:1};
 function layout(img,zoom,anchorY){const iw=img.w||img.naturalWidth||1,ih=img.h||img.naturalHeight||1;const s=Math.max(W/iw,H/ih)*zoom;const ox=(W-iw*s)/2,oy=(H-ih*s)*(anchorY==null?.5:anchorY);
@@ -299,7 +307,7 @@ function go(dir){if(S.paused||S.cin||S.walk||S.turn)return;
  if(dir==='S'){const i=DIRS.indexOf(S.face);S.face=DIRS[(i+2)%4];S.turn={t:0,d:.6,dir:1};S.lx=0;S.ly=CV().ly??-.1;SFX.rustle(2);renderExits();return;}
  const to=ahead(S.node,S.face);if(!to){say('Dense undergrowth. No way through.',2);return;}const bl=BLOCK[S.node+'>'+to];if(bl){say(bl,2.5);return;}
  const k='walk'+(1+Math.floor(Math.random()*4)),v=vid(k);try{v.currentTime=0;}catch(_){}S.walk={k,t:0,d:2.2,to};SFX.rustle(5);}
-function arrive(k){S.node=k;S.visited.add(k);S.lx=0;S.ly=CV().ly??-.1;$('place').textContent=LOC[k].name+'  ·  FACING '+DNAME[S.face];renderExits();
+function arrive(k){S.node=k;S.visited.add(k);try{[k,...DIRS.map(f=>ahead(k,f)).filter(Boolean)].forEach(q=>Object.values(LOC[q].v).forEach(v=>{if(!v.k.startsWith('img:'))vid(v.k);}));['birdA','birdB','frogA','frogW'].forEach(vid);}catch(e){}S.lx=0;S.ly=CV().ly??-.1;$('place').textContent=LOC[k].name+'  ·  FACING '+DNAME[S.face];renderExits();
  if(k==='shelter'&&!S.noticed.has('pangolin'))say('Something small moves by the roots. Look east.',3.5);
  if(k==='scary'&&S.loop>1&&!S.talk)say('The old tortoise. It looks at me as if it knows me.',4);
  if(k==='refuge'){if(S.follow)return win();say('A protected refuge. The pangolin should be here, not me alone.',4);}
@@ -402,7 +410,7 @@ function frame(now){g.imageSmoothingEnabled=true;g.imageSmoothingQuality='high';
    if(!S.walk)updateGaze(dt);}}
  if(S.mode==='play'||S.mode==='won')draw(dt);else{drawMenuBG(dt);}
  if(S.mode==='play'&&!S.cin){const left=Math.max(0,SUNSET-S.min);$('clock').textContent=hm(S.min);$('sunl').textContent=left>0?`SUNSET IN ${String(Math.floor(left/60)).padStart(2,'0')}:${String(Math.floor(left%60)).padStart(2,'0')}`:'NIGHT';
-  $('sunfill').style.width=Math.min(100,(S.min-DAY0)/(SUNSET-DAY0)*100)+'%';$('en').style.width=S.energy*100+'%';if(Math.floor(now/250)%2===0)drawMap($('mini'),0);}
+  $('sunfill').style.width=Math.min(100,(S.min-DAY0)/(SUNSET-DAY0)*100)+'%';$('en').style.width=S.energy*100+'%';if(Math.floor(now/250)%2===0){drawMap($('mini'),0);hintBar();if(Math.floor(now/1000)%2===0)objective();}}
  if(subT>0){subT-=dt;if(subT<=0)$('sub').style.opacity=0;}if(banT>0){banT-=dt;if(banT<=0)$('banner').style.opacity=0;}}
 // animated menu backdrop: the aerial river, slowly drifting under mist
 let MT=0;function drawMenuBG(dt){MT+=dt;const v=vid('menu');useV(v);g.fillStyle='#040705';g.fillRect(0,0,W,H);if(v.readyState<2)return;const s=Math.max(W/v.videoWidth,H/v.videoHeight)*1.08;
