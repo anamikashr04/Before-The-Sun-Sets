@@ -152,7 +152,7 @@ function pick(){// returns {el,w,h,zoom,ay,flt}
   if(n.vid&&S.sense!=='bird'&&S.sense!=='frog')zoom=1.12;
   if(S.sense==='leopard')flt='grayscale(.6) contrast(1.35) brightness(1.15) sepia(.25) hue-rotate(50deg)';}
  const isV=el&&el.tagName==='VIDEO';useV(isV?el:null);
- if(isV&&el.readyState<2){const n=S.cin?null:CV();const FBP={refuge:'refuge',darkpath:'darkpath',scary:'scary',grove:'forest',trail:'trail',hollow:'roots',stream:'stream',camp:'camp',mist:'mist',crossing:'streamlow',clearing:'rays',shelter:'burrow'};const fb=n?(IMG[n.img]||IMG[FBP[S.node]]):null;return fb&&fb.complete?{el:fb,w:fb.naturalWidth,h:fb.naturalHeight,zoom,ay,flt,isV:0}:null;}
+ if(isV&&el.readyState<2){const n=S.cin?null:CV();const FBP={refuge:'refuge',darkpath:'darkpath',scary:'scary',grove:'forest',trail:'trail',hollow:'roots',stream:'stream',camp:'camp',mist:'mist',crossing:'streamlow',clearing:'rays',shelter:'burrow'};const SFB={bird:'mistytop',frog:'streamlow',leopard:null};const fb=n?((S.sense!=='human'&&SFB[S.sense]&&IMG[SFB[S.sense]])||IMG[n.img]||IMG[FBP[S.node]]):null;return fb&&fb.complete?{el:fb,w:fb.naturalWidth,h:fb.naturalHeight,zoom,ay,flt,isV:0}:null;}
  if(!el||(!isV&&!el.complete))return null;return{el,w:isV?el.videoWidth:el.naturalWidth,h:isV?el.videoHeight:el.naturalHeight,zoom,ay,flt,isV,flip:!S.cin&&!S.walk&&S.sense!=='bird'&&S.sense!=='frog'&&CV().flip};}
 // ---------- world graph (map positions are on the aerial river photograph)
 // ---------- the walkable forest: a 4x3 grid of places, each seen in four directions (N E S W)
@@ -202,7 +202,7 @@ function env(gn,t,a,p,d){gn.gain.setValueAtTime(0,t);gn.gain.linearRampToValueAt
 function tone(f,d,p,f2,type,dest){if(!AC)return;const t=AC.currentTime,o=AC.createOscillator(),q=AC.createGain();o.type=type||'sine';o.frequency.setValueAtTime(f,t);if(f2)o.frequency.exponentialRampToValueAtTime(f2,t+d);env(q,t,.008,p,d);o.connect(q).connect(dest||MG);o.start(t);o.stop(t+d+.05);}
 function nz(d,p,lo,hi,dest,delay){if(!AC)return;const t=AC.currentTime+(delay||0),b=AC.createBuffer(1,AC.sampleRate*d,AC.sampleRate),x=b.getChannelData(0);for(let i=0;i<x.length;i++)x[i]=Math.random()*2-1;const s=AC.createBufferSource();s.buffer=b;
  const f1=AC.createBiquadFilter();f1.type='highpass';f1.frequency.value=lo;const f2=AC.createBiquadFilter();f2.type='lowpass';f2.frequency.value=hi;const q=AC.createGain();env(q,t,.006,p,d);s.connect(f1).connect(f2).connect(q).connect(dest||MG);s.start(t);}
-const SFX={frog:()=>{if(!AC)return;const t0=AC.currentTime;for(let k=0;k<3;k++){const t=t0+k*.36,o=AC.createOscillator(),q=AC.createGain();o.type='sawtooth';o.frequency.setValueAtTime(92*(1+(Math.random()-.5)*.1),t);[[520,6,1],[1350,8,.55],[2300,10,.25]].forEach(([f,Q,v])=>{const b=AC.createBiquadFilter();b.type='bandpass';b.frequency.value=f;b.Q.value=Q;const gg=AC.createGain();gg.gain.value=v;o.connect(b).connect(gg).connect(q);});q.gain.setValueAtTime(0,t);q.gain.linearRampToValueAtTime(.9,t+.03);q.gain.setValueAtTime(.9,t+.12);q.gain.linearRampToValueAtTime(0,t+.17);q.connect(AMB);o.start(t);o.stop(t+.2);}},rustle:(k)=>{for(let i=0;i<(k||3);i++){nz(.18,.12,1800,7000,AMB,i*.33);nz(.12,.18,60,400,AMB,i*.33);}},
+const SFX={frog:(vol=1)=>{if(!AC)return;const t0=AC.currentTime+.02;[[0,.10,108,.95],[.16,.13,124,1]].forEach(([dt,d,pr,v])=>{const t=t0+dt,o=AC.createOscillator(),q=AC.createGain();o.type='sawtooth';o.frequency.setValueAtTime(pr*.92,t);o.frequency.linearRampToValueAtTime(pr*1.06,t+d);[[950,5,1],[2100,7,.7],[3200,9,.25]].forEach(([f,Q,a])=>{const b=AC.createBiquadFilter();b.type='bandpass';b.frequency.setValueAtTime(f*.9,t);b.frequency.linearRampToValueAtTime(f*1.08,t+d);b.Q.value=Q;const gg=AC.createGain();gg.gain.value=a;o.connect(b).connect(gg).connect(q);});const am=AC.createOscillator(),ag=AC.createGain();am.frequency.value=pr*.5;ag.gain.value=.5;am.connect(ag).connect(q.gain);q.gain.setValueAtTime(0,t);q.gain.linearRampToValueAtTime(1.4*v*vol,t+.015);q.gain.setValueAtTime(1.4*v*vol,t+d-.03);q.gain.linearRampToValueAtTime(0,t+d);q.connect(AMB);o.start(t);o.stop(t+d+.02);am.start(t);am.stop(t+d+.02);});},rustle:(k)=>{for(let i=0;i<(k||3);i++){nz(.18,.12,1800,7000,AMB,i*.33);nz(.12,.18,60,400,AMB,i*.33);}},
  bird:()=>{const f=2400+Math.random()*1200,n=2+Math.floor(Math.random()*3);for(let i=0;i<n;i++)setTimeout(()=>tone(f*(1+Math.random()*.15),.12,.018,f*1.25,'sine',AMB),i*140);},
  ui:()=>tone(880,.08,.04),chime:()=>{tone(659,1.8,.09);setTimeout(()=>tone(988,1.6,.07),140);},notice:()=>tone(1320,.5,.035),
  gun:()=>{nz(1.8,.5,40,900);tone(52,1.4,.3,30);},hit:()=>{tone(44,3.2,.22,40,'sawtooth');nz(2,.12,30,200);},rewind:()=>{tone(160,2.4,.06,2400,'sawtooth');nz(2.4,.08,500,4000);},
@@ -237,7 +237,7 @@ function firstDir(from,to){if(from===to)return null;const prev={[from]:null},q=[
 function nextStep(){const G=goal();if(!G)return null;const[k,f,s]=G;let want=S.node===k?f:firstDir(S.node,k);if(!want)return s&&S.sense!==s?{sense:s}:{done:1};
  if(S.node!==k&&S.face===want)return{key:'W'};const i=DIRS.indexOf(S.face),j=DIRS.indexOf(want);if(i===j)return s&&S.sense!==s?{sense:s}:{done:1};return{key:(j-i+4)%4===1?'D':(j-i+4)%4===3?'A':'S'};}
 const STEPW={W:'WALK ON',A:'TURN LEFT',D:'TURN RIGHT',S:'TURN AROUND'};
-function hintBar(){let el=$('cluehint');if(!el){el=document.createElement('div');el.id='cluehint';el.style.cssText='position:fixed;left:50%;top:92px;transform:translateX(-50%);z-index:5;max-width:min(560px,46vw);text-align:center;line-height:1.45;padding:9px 20px;border-radius:18px;background:rgba(27,94,14,.92);color:#f3eedd;font:600 13px Inter,sans-serif;letter-spacing:.06em;pointer-events:none;box-shadow:0 0 24px rgba(120,200,90,.35);transition:opacity .3s';document.body.appendChild(el);}
+function hintBar(){let el=$('cluehint');if(!el){el=document.createElement('div');el.id='cluehint';el.style.cssText='position:fixed;left:50%;top:128px;transform:translateX(-50%);z-index:5;max-width:min(560px,46vw);text-align:center;line-height:1.45;padding:9px 20px;border-radius:18px;background:rgba(27,94,14,.92);color:#f3eedd;font:600 13px Inter,sans-serif;letter-spacing:.06em;pointer-events:none;box-shadow:0 0 24px rgba(120,200,90,.35);transition:opacity .3s';document.body.appendChild(el);}
  const live=S.mode==='play'&&!S.cin&&!S.paused;const id=live?nextClue():null;let t='';
  if(live&&S.follow)t=`LEAD THE PANGOLIN TO THE REFUGE · ${way('refuge').toUpperCase()}`;else if(live&&S.route)t=`GO TO THE PANGOLIN · ${way('shelter').toUpperCase()}`;else if(live&&!S.noticed.has('pangolin'))t=S.node==='shelter'?(S.face==='E'?'THE PANGOLIN IS HERE · FIND THE RING BY THE ROOTS · PRESS E':'THE PANGOLIN IS HERE · TURN TO FACE EAST'):`FIRST · FIND THE PANGOLIN · ${way('shelter').toUpperCase()}`;else if(live&&!id&&nClues()===4)t=`ALL CLUES FOUND · CHOOSE THE ROUTE ON THE CAMP MAP · ${way('camp').toUpperCase()}`;else if(id){const[k,f,s,key]=CLOC[id];if(S.node===k){t=S.face!==f?`A CLUE IS HERE · TURN TO FACE ${DNAME[f]}`:S.sense!==s?`A CLUE IS HERE · PRESS ${key} FOR ${s.toUpperCase()} SENSE`:'LOOK FOR THE GLOWING RING · PRESS E';}else t=`NEXT CLUE · ${LOC[k].name} · ${way(k).toUpperCase()}`;}
  const st=live?nextStep():null;if(t&&st&&st.key)t+=`  ·  NEXT: ${STEPW[st.key]} (${st.key})`;if(S.auto&&t)t='GUIDING · '+t;el.textContent=t;el.style.opacity=t?1:0;
@@ -252,13 +252,26 @@ function layout(img,zoom,anchorY){const iw=img.w||img.naturalWidth||1,ih=img.h||
 function scr(h){return[VT.x+h.x*VT.iw*VT.s,VT.y+h.y*VT.ih*VT.s];}
 // ---------- render
 let T=0,last=performance.now(),gaze={id:null,t:0},target=null,lastTick=0,birdT=4;
+const EYE={bird:['BIRD',40,'40 m · above the canopy'],human:['HUMAN',1.6,'1.6 m · your own eyes'],leopard:['LEOPARD',.6,'60 cm · low, close to the trail'],frog:['FROG',.03,'3 cm · at the water line']};
+function drawSense(){const s=S.sense;
+ if(s==='bird'){const v=g.createRadialGradient(W/2,H/2,H*.35,W/2,H/2,H*.95);v.addColorStop(0,'rgba(0,0,0,0)');v.addColorStop(1,'rgba(225,235,245,.28)');g.fillStyle=v;g.fillRect(0,0,W,H);
+  g.strokeStyle='rgba(240,240,230,.35)';g.lineWidth=1;g.beginPath();g.arc(W/2,H/2,H*.42,0,6.3);g.stroke();for(let a=0;a<4;a++){const an=a*Math.PI/2;g.beginPath();g.moveTo(W/2+Math.cos(an)*H*.38,H/2+Math.sin(an)*H*.38);g.lineTo(W/2+Math.cos(an)*H*.46,H/2+Math.sin(an)*H*.46);g.stroke();}}
+ if(s==='frog'){const v=g.createLinearGradient(0,H*.62,0,H);v.addColorStop(0,'rgba(40,90,90,0)');v.addColorStop(1,'rgba(40,110,110,.45)');g.fillStyle=v;g.fillRect(0,H*.62,W,H*.38);
+  g.strokeStyle='rgba(200,240,240,.25)';g.lineWidth=1.5;for(let i=0;i<5;i++){const r=((T*40+i*90)%450);g.globalAlpha=Math.max(0,1-r/450);g.beginPath();g.ellipse(W*.5,H*.86,r*1.6,r*.25,0,0,6.3);g.stroke();}g.globalAlpha=1;
+  const t=g.createLinearGradient(0,0,0,H*.3);t.addColorStop(0,'rgba(0,0,0,.45)');t.addColorStop(1,'rgba(0,0,0,0)');g.fillStyle=t;g.fillRect(0,0,W,H*.3);}
+ if(s==='leopard'){const v=g.createRadialGradient(W/2,H*.55,H*.2,W/2,H*.55,H*.85);v.addColorStop(0,'rgba(0,0,0,0)');v.addColorStop(1,'rgba(0,0,0,.6)');g.fillStyle=v;g.fillRect(0,0,W,H);}
+ // eye-height gauge
+ const x=W-40,y0=H*.31,y1=H*.47,lv=['bird','human','leopard','frog'],pos=[0,.45,.72,1];g.font='700 12px Rajdhani,Inter,sans-serif';g.textAlign='right';
+ g.strokeStyle='rgba(236,231,214,.35)';g.lineWidth=1;g.beginPath();g.moveTo(x,y0);g.lineTo(x,y1);g.stroke();
+ lv.forEach((k,i)=>{const y=y0+(y1-y0)*pos[i],on=k===s;g.fillStyle=on?'#d6f0a8':'rgba(236,231,214,.8)';g.beginPath();g.arc(x,y,on?6:3,0,6.3);g.fill();g.fillText((on?'▶ ':'')+EYE[k][0],x-12,y+4);});
+ g.fillStyle='#f3eedd';g.fillText('EYE HEIGHT',x+6,y0-14);g.fillStyle='#c3dc9a';g.font='600 12px Inter,sans-serif';g.fillText(EYE[s][2],x+6,y1+22);g.textAlign='left';}
 function grade(m){// returns overlay colours for time of day
  const k=[[6*60,[20,40,50,.55],0],[8*60,[30,50,40,.12],0],[13*60,[0,0,0,0],0],[16*60+30,[120,70,10,.12],0],[18*60,[150,40,20,.32],0],[18*60+45,[8,14,40,.66],1],[24*60,[2,4,14,.8],1]];
  let i=0;while(i<k.length-2&&m>k[i+1][0])i++;const a=k[i],b=k[i+1],t=Math.max(0,Math.min(1,(m-a[0])/(b[0]-a[0])));return{c:a[1].map((v,j)=>v+(b[1][j]-v)*t),night:a[2]+(b[2]-a[2])*t};}
 function draw(dt){T+=dt;g.save();g.fillStyle='#000';g.fillRect(0,0,W,H);
- const P=pick();if(!P){g.restore();return;}const img=P.el,zoom=P.zoom,ay=P.ay,flt=P.flt;
+ const P=pick();if(!P){g.restore();return;}const img=P.el,zoom=P.zoom*(1+.35*ease(S.sTr||0)),ay=P.ay,flt=P.flt;
  const L=layout(P,zoom,ay);VT={x:L.x,y:L.y,s:L.s,iw:P.w,ih:P.h};
- const bob=S.walk?Math.sin(T*8)*5:0;
+ const bob=S.walk?Math.sin(T*8)*5:S.sense==='leopard'&&!S.cin?Math.sin(T*2.2)*4:0;
  const gr=grade(S.min);const night=S.cin?0:gr.night;
  let base='brightness(.92) contrast(1.06) saturate(.9)';if(night>0)base=`brightness(${.92-night*.45}) saturate(${.9-night*.5}) contrast(1.1)`;
  g.filter=base+' '+flt;const tx=S.turn?(1-ease(S.turn.t/S.turn.d))*W*.45*S.turn.dir:0;if(S.turn)g.filter+=` blur(${(8*(1-S.turn.t/S.turn.d)).toFixed(1)}px)`;
@@ -279,6 +292,7 @@ function draw(dt){T+=dt;g.save();g.fillStyle='#000';g.fillRect(0,0,W,H);
    g.save();g.globalAlpha=.45;g.fillStyle='#000';g.filter='blur(10px)';g.beginPath();g.ellipse(x,y-hh*.04,ww*.42,hh*.07,0,0,6.3);g.fill();g.restore();g.save();g.filter=`brightness(${.86-grade(S.min).night*.4}) saturate(.85) contrast(1.05)`;g.drawImage(im,x-ww/2,y-hh,ww,hh);g.restore();}}
  // sense cue glints on hidden clues
  if(!S.cin&&!S.walk){for(const h of n.hot){if(!h.sense||h.sense!==S.sense||S.clues[CLUE[h.id].n])continue;const[x,y]=scr(h);const a=.35+.25*Math.sin(T*4);g.strokeStyle=`rgba(227,164,86,${a})`;g.lineWidth=1.5;g.beginPath();g.arc(x,y,26+6*Math.sin(T*3),0,6.3);g.stroke();}}
+ if(!S.cin)drawSense();S.sTr=Math.max(0,(S.sTr||0)-dt*1.4);
  if(S.flash>0){g.fillStyle=`rgba(236,231,214,${S.flash*.35})`;g.fillRect(0,0,W,H);S.flash=Math.max(0,S.flash-dt*2.5);}
  // vignette + grain + letterbox in cinematics
  const vg=g.createRadialGradient(W/2,H/2,H*.35,W/2,H/2,H*.95);vg.addColorStop(0,'rgba(0,0,0,0)');vg.addColorStop(1,'rgba(0,0,0,.72)');g.fillStyle=vg;g.fillRect(0,0,W,H);
@@ -328,7 +342,7 @@ function renderExits(){const c=$('exits');c.innerHTML='';const L=(cls,key,txt,d)
  const fwd=ahead(S.node,S.face),i=DIRS.indexOf(S.face);
  L('up','W',fwd&&!BLOCK[S.node+'>'+fwd]?'WALK ON · '+LOC[fwd].name:'NO PATH AHEAD','W');L('l','A','TURN · '+DNAME[DIRS[(i+3)%4]],'A');L('r','D','TURN · '+DNAME[DIRS[(i+1)%4]],'D');L('dn','S','TURN AROUND','S');
  $('place').textContent=LOC[S.node].name+'  ·  FACING '+DNAME[S.face];}
-function sense(k){if(S.cin||S.paused)return;if(k!=='human'&&S.energy<.12){say('Too tired to borrow another sense.',2.5);return;}S.sense=k;(S.used=S.used||new Set()).add(k);if(k==='frog')SFX.frog();[...$('senses').children].forEach(b=>b.classList.toggle('on',b.dataset.s===k));banner(SENSE[k].label);SFX.ui();S.flash=1;
+function sense(k){if(S.cin||S.paused)return;if(k!=='human'&&S.energy<.12){say('Too tired to borrow another sense.',2.5);return;}S.sense=k;S.sTr=1;(S.used=S.used||new Set()).add(k);if(k==='frog')SFX.frog();[...$('senses').children].forEach(b=>b.classList.toggle('on',b.dataset.s===k));banner(SENSE[k].label+'  ·  EYE HEIGHT '+EYE[k][2].split(' · ')[0]);SFX.ui();S.flash=1;
  if(k==='bird')SFX.bird();}
 $('senses').addEventListener('click',e=>{const b=e.target.closest('button');if(b)sense(b.dataset.s);});
 // ---------- input
@@ -413,7 +427,7 @@ function frame(now){g.imageSmoothingEnabled=true;g.imageSmoothingQuality='high';
   if(S.cin){S.cin.t+=dt;if(S.cin.t>S.cin.shots[S.cin.i].d){S.cin.i++;S.cin.t=0;if(S.cin.i>=S.cin.shots.length)endCin();}}
   else{S.min+=dt*(SUNSET-DAY0)/REAL*(keys.KeyT?10:1);
    if(S.sense!=='human'){S.energy-=SENSE[S.sense].cost*dt;if(S.energy<=0){S.energy=0;sense('human');say('The borrowed sense fades.',2.5);}}else S.energy=Math.min(1,S.energy+dt*.05);
-   if(S.turn){S.turn.t+=dt;if(S.turn.t>=S.turn.d)S.turn=null;}autoTick(dt);
+   if(S.turn){S.turn.t+=dt;if(S.turn.t>=S.turn.d)S.turn=null;}autoTick(dt);if(S.sense==='frog'&&!S.paused){S.frT=(S.frT||0)-dt;if(S.frT<=0){SFX.frog(.35+Math.random()*.5);S.frT=1.6+Math.random()*2.2;}}
    if(S.walk){S.walk.t+=dt;if(S.walk.t>=S.walk.d){const to=S.walk.to;S.walk=null;arrive(to);}}
    const left=SUNSET-S.min;if(left<=0&&!S.ending)sunset();if(left<90&&!S.warned){S.warned=1;SFX.hit();banner('THE SUN IS SETTING');say('The light is going.',3);}
    if(left<40&&left>0&&Math.floor(now/500)!==lastTick){lastTick=Math.floor(now/500);SFX.tick();}
